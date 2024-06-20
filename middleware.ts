@@ -32,9 +32,9 @@ export function middleware(request: NextRequest) {
   if (
     [
       '/manifest.json',
-      '/favicon.ico',
+      '/favicon.ico'
       // Your other files in `public`
-    ].includes(pathname)
+    ].includes(pathname) || pathname.includes('/images')
   )
     return
 
