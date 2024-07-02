@@ -1,58 +1,27 @@
-import LocaleSwitcher from "@/components/locale-switcher";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+
+import { DropdownMenuComponenent } from "@/components/header/DropdownMenu";
+import { NavMenu } from "@/components/header/NavMenu";
+import { Locale } from "@/i18n-config";
+import { getDictionary } from "@/lib/get-dictionaries";
+import { headers } from "next/headers";
 import Link from "next/link";
 
-export default function Layout({
+export default async function Layout({
   children,
+  params: {lang}
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: Locale };
 }>) {
+  const dictionary = await getDictionary(lang);
+  
   return (
     <>
-      <header className="fixed top-0 w-full bg-white">
+      <header className="fixed top-0 w-full bg-white p-3 px-5 opacity-80">
         <div className="flex justify-between w-full">
           <p>Logo</p>
-          <NavigationMenu className="flex justify-end w-full">
-            <NavigationMenuList className="flex justify-end w-full">
-              <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Home
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/history" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    history
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/rooms" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    rooms
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/gallery" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    gallery
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <LocaleSwitcher />
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          <NavMenu dictionary={dictionary}/>
+          <DropdownMenuComponenent dictionary={dictionary}/>
         </div>
       </header>
       <main className="flex min-h-screen flex-col">{children}</main>

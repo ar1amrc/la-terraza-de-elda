@@ -16,7 +16,7 @@ function getLocale(request: NextRequest): string | undefined {
 
   // Use negotiator and intl-localematcher to get best locale
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-    locales,
+    locales
   );
 
   const locale = matchLocale(languages, locales, i18n.defaultLocale);
@@ -31,18 +31,21 @@ export function middleware(request: NextRequest) {
   // If you have one
   if (
     [
-      '/manifest.json',
-      '/favicon.ico'
+      "/manifest.json",
+      "/favicon.ico",
       // Your other files in `public`
-    ].includes(pathname) || pathname.includes('/images')
+    ].includes(pathname) ||
+    pathname.includes("/images")
   )
-    return
+    return;
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) =>
-      !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
+
+  const headers = new Headers(request.headers);
+  headers.set("x-current-path", request.nextUrl.pathname);
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
@@ -50,14 +53,24 @@ export function middleware(request: NextRequest) {
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
+
     return NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
-        request.url,
+        request.url
       ),
+      { headers }
     );
   }
+  return NextResponse.next({ headers });
 }
+
+// export function middleware(request: NextRequest) {
+//   // Add a new header x-current-path which passes the path to downstream components
+//   const headers = new Headers(request.headers);
+//   headers.set("x-current-path", request.nextUrl.pathname);
+//   return NextResponse.next({ headers });
+// }
 
 export const config = {
   // Matcher ignoring `/_next/` and `/api/`
