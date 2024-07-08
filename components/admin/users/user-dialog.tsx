@@ -16,9 +16,7 @@ import { Label } from "@/components/ui/label";
 import { State, createUser, updateUser } from "@/lib/actions";
 import { User } from "@/lib/definitions";
 
-import { Users } from "@/lib/mocks";
-import { CircleXIcon, PencilIcon, PlusIcon } from "lucide-react";
-import { useActionState } from "react";
+import { PencilIcon, PlusIcon } from "lucide-react";
 
 export default function UserDialog({
   user,
@@ -79,7 +77,7 @@ export default function UserDialog({
               >
                 {state?.errors?.name &&
                   state?.errors.name.map((error: string) => (
-                    <p className="text-sm text-red-500" key={error}>
+                    <p className="text-xs text-red-500" key={error}>
                       {error}
                     </p>
                   ))}
@@ -104,7 +102,7 @@ export default function UserDialog({
               >
                 {state?.errors?.username &&
                   state?.errors.username.map((error: string) => (
-                    <p className="text-sm text-red-500" key={error}>
+                    <p className="text-xs text-red-500" key={error}>
                       {error}
                     </p>
                   ))}
@@ -130,7 +128,7 @@ export default function UserDialog({
               >
                 {state?.errors?.email &&
                   state?.errors.email.map((error: string) => (
-                    <p className="text-sm text-red-500" key={error}>
+                    <p className="text-xs text-red-500" key={error}>
                       {error}
                     </p>
                   ))}
@@ -156,7 +154,7 @@ export default function UserDialog({
               >
                 {state?.errors?.password &&
                   state?.errors.password.map((error: string) => (
-                    <p className="text-sm text-red-500" key={error}>
+                    <p className="text-xs text-red-500" key={error}>
                       {error}
                     </p>
                   ))}
@@ -182,7 +180,7 @@ export default function UserDialog({
               >
                 {state?.errors?.confirmPassword &&
                   state?.errors.confirmPassword.map((error: string) => (
-                    <p className="text-sm text-red-500" key={error}>
+                    <p className="text-xs text-red-500" key={error}>
                       {error}
                     </p>
                   ))}
@@ -190,7 +188,7 @@ export default function UserDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button  className="bg-teal-800"  type="submit">Guardar Cambios</Button>
           </DialogFooter>
         </form>
       </DialogContent>

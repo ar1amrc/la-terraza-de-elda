@@ -1,16 +1,5 @@
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
   Table,
   TableBody,
   TableCaption,
@@ -26,8 +15,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Users } from "@/lib/mocks";
-import { CircleXIcon, PencilIcon, PlusIcon } from "lucide-react";
-import  UserDialog  from "./user-dialog";
+import { Trash2Icon } from "lucide-react";
+import UserDialog from "@/components/admin/users/user-dialog";
+import { deleteUser } from "@/lib/actions";
 
 export default function Page() {
   const users = Users;
@@ -61,16 +51,16 @@ export default function Page() {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex gap-2 justify-between">
-               
-                      <UserDialog user={user} edit/>
-                    
+                <UserDialog user={user} edit />
 
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="outline">
-                        <CircleXIcon></CircleXIcon>
-                      </Button>
+                      <form action={deleteUser.bind(null, user?.id)}>
+                        <Button variant="outline">
+                          <Trash2Icon />
+                        </Button>
+                      </form>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Eliminar usuario</p>

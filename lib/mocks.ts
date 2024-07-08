@@ -75,6 +75,54 @@ export const Services: Service[] = [
     description: "Access to the spa and wellness center.",
     price: 100,
   },
+  {
+    id: 5,
+    name: "Private Beach",
+    description: "Relax on a private beach with a view of the ocean.",
+    price: 150,
+  },
+  {
+    id: 6,
+    name: "Private Pool",
+    description: "Relax on a private pool with a view of the ocean.",
+    price: 200,
+  },
+  {
+    id: 7,
+    name: "Private Garden",
+    description: "Relax on a private garden with a view of the ocean.",
+    price: 100,
+  },
+  {
+    id: 8,
+    name: "Private Dining Room",
+    description: "Relax on a private dining room with a view of the ocean.",
+    price: 150,
+  },
+  {
+    id: 9,
+    name: "Private Kids' Pool",
+    description: "Relax on a private kids' pool with a view of the ocean.",
+    price: 50,
+  },
+  {
+    id: 10,
+    name: "Private Beachside Restaurant",
+    description: "Relax on a private beachside restaurant with a view of the ocean.",
+    price: 100,
+  },
+  {
+    id: 11,
+    name: "Private Poolside Bar",
+    description: "Relax on a private poolside bar with a view of the ocean.",
+    price: 50,
+  },
+  {
+    id: 12,
+    name: "Private Beachside Bar",
+    description: "Relax on a private beachside bar with a view of the ocean.",
+    price: 50,
+  }
 ];
 
 export const Experiences : Experience[] = [

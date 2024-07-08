@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const UserSchema = z.object({
@@ -72,7 +73,7 @@ export async function createUser(
   }
 
   const { name, username, email, password } = validatedFields.data;
-  //redirect('/dashboard/invoices');
+  revalidatePath("/admin/users");
 }
 
 export async function updateUser(
@@ -80,8 +81,6 @@ export async function updateUser(
   prevState: State | undefined,
   formData: FormData
 ) {
-  console.log(id,formData, prevState);
-
   const validatedFields = userCreate.safeParse({
     name: formData.get("name"),
     username: formData.get("username"),
@@ -98,5 +97,18 @@ export async function updateUser(
   }
 
   const { name, username, email, password } = validatedFields.data;
-  //redirect('/dashboard/invoices');
+  revalidatePath("/admin/users");
+}
+
+export async function deleteUser(id: number) {
+  
+ // throw new Error("Failed to Delete Invoice");
+  try {
+    // await sql`DELETE FROM invoices WHERE id = ${id}`;
+  } catch (err) {
+    return {
+      message: "Database Error: Failed to Delete Invoice.",
+    };
+  }
+  revalidatePath("/admin/users");
 }
