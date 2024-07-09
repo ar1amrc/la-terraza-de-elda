@@ -17,7 +17,7 @@ import {
 import { Users } from "@/lib/mocks";
 import { Trash2Icon } from "lucide-react";
 import UserDialog from "@/components/admin/users/user-dialog";
-import { deleteUser } from "@/lib/actions";
+import { deleteUser } from "@/lib/actions/user-actions";
 
 export default function Page() {
   const users = Users;

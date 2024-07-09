@@ -27,6 +27,7 @@ import {
   DataTablePagination,
   DataTableViewOptions,
 } from "@/components/ui/data-table";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -98,7 +99,7 @@ export function DataTableServices<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu> */}
-
+        <Link href="/admin/services/create">nuevo</Link>
         <DataTableViewOptions table={table} />
       </div>
       <div className="rounded-md border">
