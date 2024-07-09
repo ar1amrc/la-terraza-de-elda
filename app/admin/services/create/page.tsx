@@ -10,31 +10,24 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import Form from "@/components/admin/service-form";
+import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
+
+const links = [
+  {
+    label: "Admin",
+    href: "/admin",
+  },
+  {
+    label: "Servicios",
+    href: "/admin/services",
+  },
+];
 
 export default function Page() {
- 
   return (
     <div>
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/admin">Admin</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/admin/services">Servicios</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Nuevo servicio</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-
+      <BreadcumbAdmin links={links} page="Nuevo Servicio"/>
+      
       <Form />
     </div>
   );

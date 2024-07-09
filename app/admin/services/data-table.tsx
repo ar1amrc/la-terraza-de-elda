@@ -28,6 +28,7 @@ import {
   DataTableViewOptions,
 } from "@/components/ui/data-table";
 import Link from "next/link";
+import { PlusIcon } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -64,12 +65,12 @@ export function DataTableServices<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex items-center  justify-between py-4 gap-2">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filtrar servicios..."
+          value={(table.getColumn("nombre")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("nombre")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -99,8 +100,14 @@ export function DataTableServices<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu> */}
-        <Link href="/admin/services/create">nuevo</Link>
+        <div className="flex gap-2 ">
+        <Button className="text-right" size='sm' asChild>
+          <Link href="/admin/services/create"> <PlusIcon/><span className="hidden md:block">Nuevo</span> </Link>
+        </Button>
+        
         <DataTableViewOptions table={table} />
+        </div>
+       
       </div>
       <div className="rounded-md border">
         <DataTable columns={columns} table={table} />

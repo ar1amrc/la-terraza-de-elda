@@ -43,7 +43,7 @@ export default function Form() {
     if (buttons.length > 0) {
       for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove(
-          "bg-teal-600",
+          "bg-cyan-700",
           "opacity-80",
           "pointer-events-none",
           "selected"
@@ -53,7 +53,7 @@ export default function Form() {
     const button = document.getElementById(keys);
     if (button) {
       button.classList.add(
-        "bg-teal-600",
+        "bg-cyan-700",
         "opacity-80",
         "pointer-events-none",
         "selected"
@@ -152,7 +152,7 @@ export default function Form() {
         </div>
       </div>
       <div className="flex justify-end">
-        <Button className="bg-teal-800" type="submit">
+        <Button type="submit">
           Guardar Cambios
         </Button>
       </div>

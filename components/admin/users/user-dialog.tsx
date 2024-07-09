@@ -42,7 +42,7 @@ export default function UserDialog({
             <PencilIcon />
           </Button>
         ) : (
-          <Button className="bg-teal-800" size="sm">
+          <Button size="sm">
             <PlusIcon />
           </Button>
         )}
@@ -188,7 +188,7 @@ export default function UserDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button  className="bg-teal-800"  type="submit">Guardar Cambios</Button>
+            <Button type="submit">Guardar Cambios</Button>
           </DialogFooter>
         </form>
       </DialogContent>
