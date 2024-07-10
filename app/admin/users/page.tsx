@@ -18,6 +18,7 @@ import { Users } from "@/lib/mocks";
 import { Trash2Icon } from "lucide-react";
 import UserDialog from "@/components/admin/users/user-dialog";
 import { deleteUser } from "@/lib/actions/user-actions";
+import { DeleteDialog } from "@/components/admin/delete-dialog";
 
 export default function Page() {
   const users = Users;
@@ -50,10 +51,10 @@ export default function Page() {
               <input type="password" value={user.password} disabled />
             </TableCell>
             <TableCell className="text-right">
-              <div className="flex gap-2 justify-between">
+              <div className="flex gap-2">
                 <UserDialog user={user} edit />
-
-                <TooltipProvider>
+                <DeleteDialog action={deleteUser} id={user.id} />
+                {/* <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <form action={deleteUser.bind(null, user?.id)}>
@@ -66,7 +67,7 @@ export default function Page() {
                       <p>Eliminar usuario</p>
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
+                </TooltipProvider> */}
               </div>
             </TableCell>
           </TableRow>

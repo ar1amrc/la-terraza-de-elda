@@ -1,14 +1,3 @@
-import Link from "next/link";
-
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-
 import Form from "@/components/admin/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
 

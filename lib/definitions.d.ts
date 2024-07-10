@@ -14,6 +14,7 @@ export interface Service {
     name: string;
     description: string;
     price?: number;
+    icon?: string;
 }
 
 export interface Experience {

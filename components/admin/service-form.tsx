@@ -2,47 +2,52 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useFormState } from "react-dom";
-import { createService, State } from "@/lib/actions/service-actions";
+import {
+  createService,
+  State,
+  updateService,
+} from "@/lib/actions/service-actions";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
+import { useEffect, useState } from "react";
+import { iconsList } from "../icons/icons";
 import {
-  AirVent,
-  Car,
-  CreditCard,
-  Fan,
-  Phone,
-  Plane,
-  PlaneLanding,
-  PlaneTakeoff,
-  Wifi,
-} from "lucide-react";
-import { MouseEvent, SyntheticEvent, useState } from "react";
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import { Service } from "@/lib/definitions";
 
-const iconsList = {
-  wifi: <Wifi />,
-  phone: <Phone />,
-  air: <AirVent />,
-  fan: <Fan />,
-  plane: <Plane />,
-  "plane-landing": <PlaneLanding />,
-  "plane-takeoff": <PlaneTakeoff />,
-  "credit-card": <CreditCard />,
-  car: <Car />,
-};
-
-export default function Form() {
+export default function Form({ service }: { service?: Service }) {
   const initialState = { errors: {} };
-  const [icon, setIcon] = useState("");
+  const [icon, setIcon] = useState(service?.icon);
+
+  const functionToCall = service
+    ? updateService.bind(null, service.id)
+    : createService;
 
   const [state, dispatch] = useFormState<State | undefined, FormData>(
-    createService,
+    functionToCall,
     initialState
   );
-  function handleClick(keys: string) {
-    const buttons = document.getElementsByClassName("selected");
-    if (buttons.length > 0) {
-      for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove(
+
+  useEffect(() => {
+    if (icon) {
+      const buttons = document.getElementsByClassName("selected");
+      if (buttons.length > 0) {
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove(
+            "bg-cyan-700",
+            "opacity-80",
+            "pointer-events-none",
+            "selected"
+          );
+        }
+      }
+      const button = document.getElementById(icon);
+      if (button) {
+        button.classList.add(
           "bg-cyan-700",
           "opacity-80",
           "pointer-events-none",
@@ -50,17 +55,31 @@ export default function Form() {
         );
       }
     }
-    const button = document.getElementById(keys);
-    if (button) {
-      button.classList.add(
-        "bg-cyan-700",
-        "opacity-80",
-        "pointer-events-none",
-        "selected"
-      );
-    }
-    setIcon(keys);
-  }
+  }, [icon]);
+  
+  // function handleClick(keys: string) {
+  //   const buttons = document.getElementsByClassName("selected");
+  //   if (buttons.length > 0) {
+  //     for (let i = 0; i < buttons.length; i++) {
+  //       buttons[i].classList.remove(
+  //         "bg-cyan-700",
+  //         "opacity-80",
+  //         "pointer-events-none",
+  //         "selected"
+  //       );
+  //     }
+  //   }
+  //   const button = document.getElementById(keys);
+  //   if (button) {
+  //     button.classList.add(
+  //       "bg-cyan-700",
+  //       "opacity-80",
+  //       "pointer-events-none",
+  //       "selected"
+  //     );
+  //   }
+  //   setIcon(keys);
+  // }
 
   return (
     <form action={dispatch}>
@@ -74,8 +93,14 @@ export default function Form() {
             name="name"
             className="col-span-3"
             aria-describedby="name-error"
+            defaultValue={service?.name}
           />
-          <div id="name-error" aria-live="polite" aria-atomic="true"  className="col-start-2 col-span-3">
+          <div
+            id="name-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-3"
+          >
             {state?.errors?.name &&
               state?.errors.name.map((error: string) => (
                 <p className="text-xs text-red-500" key={error}>
@@ -85,7 +110,7 @@ export default function Form() {
           </div>
         </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-6 md:col-span-6 md:order-3  gap-2">
+        <div className="flex flex-col md:grid md:grid-cols-6 md:col-span-6 md:order-3 md:items-center  gap-2">
           <Label htmlFor="description" className="px-1 md:text-right">
             Descripción
           </Label>
@@ -94,6 +119,7 @@ export default function Form() {
             name="description"
             className="col-span-5"
             aria-describedby="description-error"
+            defaultValue={service?.description}
           />
           <div
             id="description-error"
@@ -116,12 +142,21 @@ export default function Form() {
           </Label>
           <Input
             type="number"
+            min="0"
+            
+            step="0.01"
+            defaultValue={service?.price}
             id="price"
             name="price"
             className="col-span-4 col-start-3"
-            aria-describedby="email-error"
+            aria-describedby="price-error"
           />
-          <div id="email-error" aria-live="polite" aria-atomic="true"  className="col-start-3 col-span-3">
+          <div
+            id="price-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-3 col-span-3"
+          >
             {state?.errors?.price &&
               state?.errors.price.map((error: string) => (
                 <p className="text-xs text-red-500" key={error}>
@@ -131,30 +166,36 @@ export default function Form() {
           </div>
         </div>
 
-        <div className="flex flex-col md:grid md:col-span-6 md:grid-cols-6 md:order-4 gap-2">
+        <div className="flex flex-col md:grid md:col-span-6 md:grid-cols-6 md:items-center md:order-4 gap-2">
           <Label htmlFor="icon" className="px-1 md:text-right">
             Ícono
           </Label>
           <Input type="hidden" name="icon" value={icon} />
           <div className="flex flex-wrap gap-2 col-start-2 col-span-5">
             {Object.entries(iconsList).map(([elKey, value], index) => (
-              <Button
-                onClick={() => handleClick(elKey)}
-                variant="outline"
-                type="button"
-                key={index}
-                id={elKey}
-              >
-                {value}
-              </Button>
+              <TooltipProvider key={index}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={() => setIcon(elKey)}
+                      variant="outline"
+                      type="button"
+                      id={elKey}
+                    >
+                      {value}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{elKey}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ))}
           </div>
         </div>
       </div>
       <div className="flex justify-end">
-        <Button type="submit">
-          Guardar Cambios
-        </Button>
+        <Button type="submit">Guardar Cambios</Button>
       </div>
     </form>
   );

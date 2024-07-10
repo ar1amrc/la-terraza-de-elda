@@ -57,17 +57,20 @@ export const Services: Service[] = [
     id: 1,
     name: "WiFi",
     description: "High-speed wireless internet.",
+    icon: 'wifi'
   },
   {
     id: 2,
     name: "Breakfast",
     description: "Complimentary breakfast included.",
+    icon: 'egg-fried'
   },
   {
     id: 3,
     name: "Airport Shuttle",
     description: "Free shuttle to and from the airport.",
     price: 50,
+    icon: 'plane'
   },
   {
     id: 4,
