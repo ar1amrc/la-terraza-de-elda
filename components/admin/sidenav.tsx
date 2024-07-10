@@ -1,20 +1,20 @@
-import Link from 'next/link';
-import NavLinks from './nav-links';
-import { HomeIcon } from 'lucide-react';
+import Link from "next/link";
+import NavLinks from "./nav-links";
+import { HomeIcon } from "lucide-react";
 // import AcmeLogo from '@/app/ui/acme-logo';
 // import { PowerIcon } from '@heroicons/react/24/outline';
 // import { signOut } from '@/auth';
 
-export default function   SideNav() {
+export default function SideNav() {
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
-        className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-24"
+        className="mb-2 flex h-20 items-end justify-start rounded-md bg-primary p-4 md:h-24"
         href="/"
       >
-        <div className="w-24 text-white md:w-40 flex flex-col gap-3">
+        <div className=" text-white flex  gap-3">
           <HomeIcon></HomeIcon>
-         <span > La Terraza de Elda</span>
+          <span> La Terraza de Elda - Admin</span>
         </div>
       </Link>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
