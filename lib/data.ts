@@ -8,7 +8,6 @@ export async function getServices(): Promise<Service[]> {
 export async function getServicesById(
   id: string | number
 ): Promise<Service | undefined> {
-
   return Services.find((service) => service.id == id);
 }
 
@@ -18,4 +17,10 @@ export async function getUsers(): Promise<User[]> {
 
 export async function getExperiencies(): Promise<Experience[]> {
   return Experiences;
+}
+
+export async function getExperienciesById(
+  id: string | number
+): Promise<Experience | undefined> {
+  return Experiences.find((experience) => experience.id == id);
 }

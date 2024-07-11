@@ -2,7 +2,7 @@
 
 
 import clsx from 'clsx';
-import { DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
+import { CarFrontIcon, DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -15,6 +15,7 @@ const links = [
     href: '/admin/services',
     icon: DockIcon,
   },
+  { name: 'Experiencies', href: '/admin/experiencies', icon: CarFrontIcon },
   { name: 'Users', href: '/admin/users', icon: UserX2Icon },
 ];
 
