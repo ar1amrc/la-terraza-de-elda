@@ -85,27 +85,33 @@ export const columns: ColumnDef<Service>[] = [
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
+                  <span className="sr-only">Abrir menu</span>
                   <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                   onClick={() =>
                     navigator.clipboard.writeText(service.id.toString())
                   }
                 >
                   Copy payment ID
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>View customer</DropdownMenuItem>
-                <DropdownMenuItem>View payment details</DropdownMenuItem>
+                <DropdownMenuSeparator /> */}
+                <DropdownMenuItem>
+                  <Link href={`/admin/services/${service.id}/edi`}>
+                    Editar servicio
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={(e)=>{e.preventDefault()}}>
+                  <DeleteDialog action={deleteService} id={service.id} fromMenu={true}/>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className="hidden md:flex md:gap-2" >
-            <Button size="sm" variant='outline' asChild>
+          <div className="hidden md:flex md:gap-2">
+            <Button size="sm" variant="outline" asChild>
               <Link
                 href={`/admin/services/${service.id}/edit`}
                 className="rounded-md border p-2 hover:bg-gray-100"

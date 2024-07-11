@@ -15,16 +15,19 @@ import { Trash2Icon } from "lucide-react";
 export function DeleteDialog({
   action,
   id,
+  fromMenu = false,
 }: {
   action: any;
   id: string | number;
+  fromMenu?: boolean; // true if it's called from menu, false if it's called from item
 }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button  size='sm' variant="outline">
+        {fromMenu ?  <p className="cursor-pointer w-full">Eliminar</p> : <Button  size='sm' variant="outline">
           <Trash2Icon />
-        </Button>
+        </Button> }
+      
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
