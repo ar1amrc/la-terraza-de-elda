@@ -2,7 +2,7 @@
 
 
 import clsx from 'clsx';
-import { CarFrontIcon, DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
+import { CalendarIcon, CarFrontIcon, DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -11,12 +11,13 @@ import { usePathname } from 'next/navigation';
 const links = [
   { name: 'Home', href: '/admin', icon: HomeIcon },
   {
-    name: 'Services',
+    name: 'Servicios',
     href: '/admin/services',
     icon: DockIcon,
   },
-  { name: 'Experiencies', href: '/admin/experiencies', icon: CarFrontIcon },
-  { name: 'Users', href: '/admin/users', icon: UserX2Icon },
+  { name: 'Experiencias', href: '/admin/experiencies', icon: CarFrontIcon },
+  { name: 'Reservas', href: '/admin/reservations', icon: CalendarIcon },
+  { name: 'Usuarios', href: '/admin/users', icon: UserX2Icon },
 ];
 
 export default function NavLinks() {

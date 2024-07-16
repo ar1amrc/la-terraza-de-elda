@@ -33,7 +33,7 @@ export interface Reservation {
     guests: number;
     guestsData:  string;
     amount: number;
-    status: string;
+    status: 'pending' | 'confirmed' | 'cancelled' ; 
     experiences?: number[];
     email?: string;
 }

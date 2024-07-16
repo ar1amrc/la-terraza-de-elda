@@ -1,7 +1,7 @@
 import fs from "fs";
 
-import { Experience, Service, User } from "./definitions";
-import { Experiences, Services, Users } from "./mocks";
+import { Experience, Reservation, Service, User } from "./definitions";
+import { Experiences, Reservations, Services, Users } from "./mocks";
 
 export async function getServices(): Promise<Service[]> {
   return Services;
@@ -27,6 +27,12 @@ export async function getExperienciesById(
   return Experiences.find((experience) => experience.id == id);
 }
 
-export async function getExperienceImages(id: string | number){
-  
+export async function getReservations(): Promise<Reservation[]> {
+  return Reservations;
+}
+
+export async function getReservationsById(
+  id: string | number
+): Promise<Reservation | undefined> {
+  return Reservations.find((reservation) => reservation.id == id);
 }
