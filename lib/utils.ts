@@ -13,3 +13,8 @@ export function lt(lang: string, text: string) {
 
   return text;
 }
+
+export function objectType(obj : any) : string{
+  if(obj.name && obj.description && obj.images) return 'experience'
+  return 'object'
+}

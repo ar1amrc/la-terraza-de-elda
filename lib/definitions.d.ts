@@ -21,6 +21,7 @@ export interface Experience {
     id: number;
     name: string;
     description: string;
+    images?: string[];
 }
 
 export interface Reservation {

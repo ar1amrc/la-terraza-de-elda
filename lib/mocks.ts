@@ -132,7 +132,8 @@ export const Experiences : Experience[] = [
     {
         "id": 1,
         "name": "City Tour",
-        "description": "Explore the city's landmarks with a guided tour."
+        "description": "Explore the city's landmarks with a guided tour.",
+        "images": ["ar.jpg", "dp.jpg"]
     },
     {
         "id": 2,

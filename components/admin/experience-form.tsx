@@ -10,6 +10,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "../ui/button";
 import { Experience } from "@/lib/definitions";
+import FileUploadForm from "./upload/FileUploadForm";
 
 export default function Form({ experience }: { experience?: Experience }) {
   const initialState = { errors: {} };
@@ -76,6 +77,10 @@ export default function Form({ experience }: { experience?: Experience }) {
                 </p>
               ))}
           </div>
+        </div>
+        <div className="flex flex-col md:grid md:grid-cols-6 md:col-span-6  md:items-center  gap-2">
+
+        <FileUploadForm objectToSearch={experience} />
         </div>
       </div>
       <div className="flex justify-end">

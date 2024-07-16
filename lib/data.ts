@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import { Experience, Service, User } from "./definitions";
 import { Experiences, Services, Users } from "./mocks";
 
@@ -23,4 +25,8 @@ export async function getExperienciesById(
   id: string | number
 ): Promise<Experience | undefined> {
   return Experiences.find((experience) => experience.id == id);
+}
+
+export async function getExperienceImages(id: string | number){
+  
 }
