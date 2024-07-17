@@ -15,6 +15,7 @@ export function lt(lang: string, text: string) {
 }
 
 export function objectType(obj : any) : string{
+  if(obj.name && obj.description && obj.images && obj.capacity && obj.primaryServices) return 'room'
   if(obj.name && obj.description && obj.images) return 'experience'
   return 'object'
 }

@@ -1,7 +1,7 @@
-import { getServicesById } from "@/lib/data";
+import { getRoomsById, getServicesSelect } from "@/lib/data";
 import { notFound } from "next/navigation";
-import Form from "@/components/admin/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
+import Form from "@/components/admin/room-form";
 
 const links = [
   {
@@ -9,24 +9,36 @@ const links = [
     href: "/admin",
   },
   {
-    label: "Servicios",
-    href: "/admin/services",
+    label: "Habitaciones",
+    href: "/admin/rooms",
   },
 ];
-
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 
-  const service = await getServicesById(id)
+  const services = await getServicesSelect();
+  const rooms = await getRoomsById(id);
 
-  if (!service) {
-    //todo: cambiar condicion
+  
+  if (!rooms) {
     notFound();
   }
+  
+  const ps = Array.from(rooms.primaryServices, (service) => {
+    return { label: service.name, value: service.id.toString() };
+  });
 
-  return <main>
-    <BreadcumbAdmin links={links} page="Editar Servicio"/>
-      
-      <Form  service={service}/>
-  </main>;
+ 
+  const es =  rooms.extraServices ? Array.from(rooms.extraServices, (service) => {
+    return { label: service.name, value: service.id.toString() };
+  }) : [];
+
+
+  return (
+    <main>
+      <BreadcumbAdmin links={links} page="Editar Habitación" />
+
+      <Form services={services} room={rooms} ps={ps} es={es} />
+    </main>
+  );
 }

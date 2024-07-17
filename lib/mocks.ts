@@ -5,9 +5,10 @@ export const Rooms: Room[] = [
     id: 1,
     name: "Deluxe Suite",
     description: "A luxurious suite with a beautiful sea view.",
-    image: ["deluxe_suite_1.jpg", "deluxe_suite_2.jpg"],
+    images: ["deluxe_suite_1.jpg", "deluxe_suite_2.jpg"],
     price: 300,
     capacity: 4,
+    thumbnail: 'dp.jpg', 
     primaryServices: [
       {
         id: 1,
@@ -22,7 +23,7 @@ export const Rooms: Room[] = [
         icon: 'egg-fried'
       },
     ],
-    secondaryServices: [
+    extraServices: [
       {
         id: 3,
         name: "Airport Shuttle",
@@ -42,7 +43,7 @@ export const Rooms: Room[] = [
     id: 2,
     name: "Standard Room",
     description: "A comfortable room for budget travelers.",
-    image: ["standard_room_1.jpg"],
+    images: ["standard_room_1.jpg"],
     price: 100,
     capacity: 2,
     primaryServices: [

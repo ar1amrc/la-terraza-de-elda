@@ -20,15 +20,19 @@ const OPTIONS: Option[] = [
 export default function Form({
   services,
   room,
+  ps = [],
+  es = []
 }: {
   services: Option[];
   room?: Room;
+  ps?: Option[];
+  es?: Option[];
 }) {
   const initialState = { errors: {} };
 
   const functionToCall = room ? updateRoom.bind(null, room.id) : createRoom;
-  const [primary, setPrimary] = useState<Option[]>([]);
-  const [extra, setExtra] = useState<Option[]>([]);
+  const [primary, setPrimary] = useState<Option[]>(ps);
+  const [extra, setExtra] = useState<Option[]>(es);
 
   const [state, dispatch] = useFormState<State | undefined, FormData>(
     functionToCall,
