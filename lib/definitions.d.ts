@@ -2,11 +2,12 @@ export interface Room {
     id: number;
     name: string;
     description: string;
-    image?: string[];
+    thumbnail?: string;
+    images?: string[];
     price: number;
     capacity: number;
     primaryServices: Service[];
-    secondaryServices?: Service[];
+    extraServices?: Service[];
 }
 
 export interface Service { 
