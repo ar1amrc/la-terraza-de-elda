@@ -1,5 +1,6 @@
-import Form from "@/components/admin/forms/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
+import Form from "@/components/admin/forms/reservation.form";
+import { getExperiences, getRooms } from "@/lib/data";
 
 const links = [
   {
@@ -7,17 +8,20 @@ const links = [
     href: "/admin",
   },
   {
-    label: "Servicios",
-    href: "/admin/services",
+    label: "Reservas",
+    href: "/admin/reservations",
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const rooms = await getRooms();
+  const experiences = await getExperiences()
+
   return (
     <div>
-      <BreadcumbAdmin links={links} page="Nuevo Servicio"/>
+      <BreadcumbAdmin links={links} page="Nueva Reserva"/>
       
-      <Form />
+      <Form rooms={rooms} experiences={experiences} />
     </div>
   );
 }

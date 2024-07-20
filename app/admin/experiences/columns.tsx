@@ -72,7 +72,7 @@ export const columns: ColumnDef<Experience>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                 <DropdownMenuItem>
-                  <Link href={`/admin/experiencies/${experience.id}/edi`}>
+                  <Link href={`/admin/experiences/${experience.id}/edi`}>
                     Editar Experiencia
                   </Link>
                 </DropdownMenuItem>
@@ -85,7 +85,7 @@ export const columns: ColumnDef<Experience>[] = [
           <div className="hidden md:flex md:gap-2">
             <Button size="sm" variant="outline" asChild>
               <Link
-                href={`/admin/experiencies/${experience.id}/edit`}
+                href={`/admin/experiences/${experience.id}/edit`}
                 className="rounded-md border p-2 hover:bg-gray-100"
               >
                 <PencilIcon />

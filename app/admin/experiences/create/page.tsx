@@ -8,7 +8,7 @@ const links = [
   },
   {
     label: "Experiencias",
-    href: "/admin/experiencies",
+    href: "/admin/experiences",
   },
 ];
 

@@ -90,7 +90,7 @@ export async function createRoom(
           fs.mkdirSync(folderName);
         } else {
           fs.writeFileSync(
-            `public/images/experiencies/${name}/${formDataEntryValue.name}`,
+            `public/images/experiences/${name}/${formDataEntryValue.name}`,
             buffer
           );
         }

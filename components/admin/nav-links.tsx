@@ -16,7 +16,7 @@ const links = [
     href: '/admin/services',
     icon: DockIcon,
   },
-  { name: 'Experiencias', href: '/admin/experiencies', icon: CarFrontIcon },
+  { name: 'Experiencias', href: '/admin/experiences', icon: CarFrontIcon },
   { name: 'Reservas', href: '/admin/reservations', icon: CalendarIcon },
   { name: 'Usuarios', href: '/admin/users', icon: UserX2Icon },
 ];

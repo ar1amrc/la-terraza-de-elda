@@ -61,7 +61,7 @@ export async function createExperience(
           fs.mkdirSync(folderName);
         } else {
           fs.writeFileSync(
-            `public/images/experiencies/${name}/${formDataEntryValue.name}`,
+            `public/images/experiences/${name}/${formDataEntryValue.name}`,
             buffer
           );
         }
@@ -71,7 +71,7 @@ export async function createExperience(
     }
   }
 
-  revalidatePath("/admin/experiencies");
+  revalidatePath("/admin/experiences");
 }
 
 export async function updateExperience(
@@ -98,7 +98,7 @@ export async function updateExperience(
   }
 
   const { name, description } = validatedFields.data;
-  revalidatePath("/admin/experiencies");
+  revalidatePath("/admin/experiences");
   //  redirect("/admin/Experiences");
 }
 
@@ -111,5 +111,5 @@ export async function deleteExperience(id: number) {
       message: "Database Error: Failed to Delete Invoice.",
     };
   }
-  revalidatePath("/admin/experiencies");
+  revalidatePath("/admin/experiences");
 }

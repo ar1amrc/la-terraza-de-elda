@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTableExperiencies<TData, TValue>({
+export function DataTableExperiences<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -69,7 +69,7 @@ export function DataTableExperiencies<TData, TValue>({
         />
         <div className="flex gap-2 ">
         <Button className="text-right" size='sm' asChild>
-          <Link href="/admin/experiencies/create"> <PlusIcon/><span className="hidden md:block">Nuevo</span> </Link>
+          <Link href="/admin/experiences/create"> <PlusIcon/><span className="hidden md:block">Nuevo</span> </Link>
         </Button>
         
         <DataTableViewOptions table={table} />

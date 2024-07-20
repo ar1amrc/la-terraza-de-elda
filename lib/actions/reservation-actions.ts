@@ -6,28 +6,32 @@ import { z } from "zod";
 
 const ReservationSchema = z.object({
   id: z.number(),
-  name: z
-    .string()
-    .min(3, { message: "El nombre debe tener al menos 3 caracteres" }),
-  description: z
-    .string()
-    .min(10, { message: "La descripción debe tener al menos 10 caracteres" }),
-  price: z.optional(z.number().min(0, { message: "El precio no puede ser negativo" })),
-  icon: z.string().optional(),
-  // categoryId: z.number().min(1, { message: "Debe seleccionar una categoría" }),
-  // isActive: z.boolean(),
-  // createdAt: z.date(),
-  // updatedAt: z.date(),
-  // Add any other required fields here
+  roomId: z.number(),
+  userId: z.number().optional(),
+  startDate: z.date(),
+  endDate: z.date(),
+  guests: z.number(),
+  guestsData: z.string().min(5),
+  amount: z.number(),
+  status: z.enum(["pending", "confirmed", "cancelled"]),
+  experiences: z.array(z.number()).optional(),
+  email: z.string().email().optional(),
 });
 
 const ReservationCreate = ReservationSchema.omit({ id: true });
 
 export type State = {
   errors: {
-    name?: string[];
-    description?: string[];
-    price?: string[];
+    roomId?: string[];
+    userId?: string[];
+    startDate?: string[];
+    endDate?: string[];
+    guests?: string[];
+    guestsData?: string[];
+    amount?: string[];
+    status?: string[];
+    experiences?: string[];
+    email?: string[];
   };
   message?: string | null;
 };
@@ -51,7 +55,7 @@ export async function createReservation(
     };
   }
 
-  const { name, description, price, icon } = validatedFields.data;
+  const { guests } = validatedFields.data;
   revalidatePath("/admin/reservations");
 }
 
@@ -81,7 +85,7 @@ console.log(formData);
     };
   }
 
-  const { name, description, price, icon } = validatedFields.data;
+  const {guests } = validatedFields.data;
   revalidatePath("/admin/reservations");
 //  redirect("/admin/reservations");
 }

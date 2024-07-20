@@ -27,11 +27,11 @@ export async function getUsers(): Promise<User[]> {
   return Users;
 }
 
-export async function getExperiencies(): Promise<Experience[]> {
+export async function getExperiences(): Promise<Experience[]> {
   return Experiences;
 }
 
-export async function getExperienciesById(
+export async function getExperiencesById(
   id: string | number
 ): Promise<Experience | undefined> {
   return Experiences.find((experience) => experience.id == id);

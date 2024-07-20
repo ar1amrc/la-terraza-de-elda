@@ -10,7 +10,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteReservation } from "@/lib/actions/reservation-actions";
@@ -56,10 +55,23 @@ export const columns: ColumnDef<Reservation>[] = [
     }
   },
   {
+    id: 'datos',
     accessorKey: "guestsData",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Descripción" sort={false} />
+      <DataTableColumnHeader column={column} title="Datos" sort={false} />
     ),
+  },
+  {
+    id:'fechas',
+    accessorKey:'startDate',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Fechas" />
+    ),
+    cell: ({ row }) => {
+      const startDate: Date = new Date(row.original.startDate);
+      const endDate:  Date = new Date(row.original.endDate);
+      return <div>{startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}</div>;
+    }
   },
   {
     id: "pago",
