@@ -1,7 +1,7 @@
 import { getRoomsById, getServicesSelect } from "@/lib/data";
 import { notFound } from "next/navigation";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
-import Form from "@/components/admin/room-form";
+import Form from "@/components/admin/forms/room-form";
 
 const links = [
   {

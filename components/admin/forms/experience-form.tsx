@@ -8,9 +8,9 @@ import {
   updateExperience,
 } from "@/lib/actions/experience-actions";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Experience } from "@/lib/definitions";
-import FileUploadForm from "./upload/FileUploadForm";
+import FileUploadForm from "../upload/FileUploadForm";
 
 export default function Form({ experience }: { experience?: Experience }) {
   const initialState = { errors: {} };

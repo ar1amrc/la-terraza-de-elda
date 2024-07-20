@@ -8,15 +8,15 @@ import {
   updateService,
 } from "@/lib/actions/service-actions";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useEffect, useState } from "react";
-import { iconsList } from "../icons/icons";
+import { iconsList } from "../../icons/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "../../ui/tooltip";
 import { Service } from "@/lib/definitions";
 
 export default function Form({ service }: { service?: Service }) {

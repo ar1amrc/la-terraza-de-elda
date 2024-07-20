@@ -1,7 +1,7 @@
 import { getExperienciesById } from "@/lib/data";
 import { notFound } from "next/navigation";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
-import Form from "@/components/admin/experience-form";
+import Form from "@/components/admin/forms/experience-form";
 
 const links = [
   {

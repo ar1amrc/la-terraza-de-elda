@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { useFormState } from "react-dom";
 import { createRoom, State, updateRoom } from "@/lib/actions/room-actions";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Room } from "@/lib/definitions";
-import MultipleSelector, { Option } from "../ui/multiple-selector";
+import MultipleSelector, { Option } from "../../ui/multiple-selector";
 import { useState } from "react";
-import FileUploadForm from "./upload/FileUploadForm";
+import FileUploadForm from "../upload/FileUploadForm";
 
 const OPTIONS: Option[] = [
   { label: "nextjs", value: "Nextjs", disable: false },

@@ -1,4 +1,4 @@
-import Form from "@/components/admin/service-form";
+import Form from "@/components/admin/forms/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
 
 const links = [

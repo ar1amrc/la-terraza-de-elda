@@ -1,6 +1,6 @@
 import { getServicesById } from "@/lib/data";
 import { notFound } from "next/navigation";
-import Form from "@/components/admin/service-form";
+import Form from "@/components/admin/forms/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
 
 const links = [

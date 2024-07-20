@@ -1,4 +1,4 @@
-import Form from "@/components/admin/room-form";
+import Form from "@/components/admin/forms/room-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
 import { getServicesSelect } from "@/lib/data";
 
