@@ -1,6 +1,6 @@
 "use server";
 
-import  fs from "fs";
+import fs from "fs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -54,13 +54,15 @@ export async function createRoom(
   formData: FormData
 ) {
   const images = formData.getAll("images");
-  
+
   const validatedFields = RoomCreate.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
     price: parseFloat(formData.get("price") as string),
     capacity: parseInt(formData.get("capacity") as string),
-    primaryServices: formData.get("primaryServices") ? (formData.get("primaryServices") as string)?.split(","): [],
+    primaryServices: formData.get("primaryServices")
+      ? (formData.get("primaryServices") as string)?.split(",")
+      : [],
     extraServices: (formData.get("extraServices") as string)?.split(","),
   });
 
@@ -82,7 +84,7 @@ export async function createRoom(
 
       const buffer = Buffer.from(await fil.arrayBuffer());
       const folderName = `public/images/experience/${name}`;
-      
+
       try {
         if (!fs.existsSync(folderName)) {
           fs.mkdirSync(folderName);
@@ -141,4 +143,10 @@ export async function deleteRoom(id: number) {
     };
   }
   revalidatePath("/admin/rooms");
+}
+
+export async function changeThumbnail(id: number | string, image?: string) {
+  console.log(image);
+  revalidatePath("/admin/rooms");
+
 }

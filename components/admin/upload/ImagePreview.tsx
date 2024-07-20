@@ -15,16 +15,16 @@ const ImagePreview = ({ images, objectToSearch }: Props) => {
         {images.map((image) => {
           const src = URL.createObjectURL(image);
           return (
-            <div className="relative aspect-video col-span-4" key={image.name}>
-              <Image src={src} alt={image.name} className="object-cover" fill />
+            <div className="relative aspect-video col-span-4 lg:col-span-2" key={image.name}>
+              <Image src={src} alt={image.name} className="object-cover rounded-sm" fill />
             </div>
           );
         })}
         {objectToSearch && objectToSearch.images ? objectToSearch.images.map((image) => {
           const src = `/images/${objectType(objectToSearch)}/${objectToSearch.id}/${image}`;
           return (
-            <div className="relative aspect-video col-span-4" key={image}>
-              <Image src={src} alt={image} className="object-cover" fill />
+            <div className="relative aspect-video col-span-4 lg:col-span-2" key={image}>
+              <Image src={src} alt={image} className="object-cover rounded-sm" fill />
             </div>
           );
         }): null}

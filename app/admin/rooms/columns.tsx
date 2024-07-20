@@ -1,6 +1,7 @@
 "use client";
 
 import { DeleteDialog } from "@/components/admin/delete-dialog";
+import ThumbnailSelector from "@/components/admin/thumbnail-selector";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/ui/data-table";
@@ -68,8 +69,9 @@ export const columns: ColumnDef<Room>[] = [
       const src = thumbnail ? `/images/room/${row.original.id}/${thumbnail}` : '/images/casa.jpg';
 
       return (
-        <div className="flex items-center justify-center">
-          <Image src={src} alt={thumbnail ?? row.original.name} width={50} height={50} className="object-cover" />
+        <div className="flex items-center">
+          <ThumbnailSelector src={src} room={row.original} />
+          {/* <Image src={src} alt={thumbnail ?? row.original.name} width={50} height={50} className="object-cover" /> */}
         </div>
       );
     },
@@ -99,6 +101,10 @@ export const columns: ColumnDef<Room>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Capacidad" />
     ),
+    cell: ({ row }) => {
+      const capacity: number = row.getValue("capacidad");
+      return <div className="text-center">{capacity}</div>;
+    },
   },
   {
     id: "actions",

@@ -5,10 +5,10 @@ export const Rooms: Room[] = [
     id: 1,
     name: "Deluxe Suite",
     description: "A luxurious suite with a beautiful sea view.",
-    images: ["deluxe_suite_1.jpg", "deluxe_suite_2.jpg"],
+    images: ["deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg","deluxe_suite_1.png", "deluxe_suite_2.jpg"],
     price: 300,
     capacity: 4,
-    thumbnail: 'dp.jpg', 
+    thumbnail: 'deluxe_suite_2.jpg', 
     primaryServices: [
       {
         id: 1,
