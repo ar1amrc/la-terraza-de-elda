@@ -10,18 +10,11 @@ import MultipleSelector, { Option } from "../../ui/multiple-selector";
 import { useState } from "react";
 import FileUploadForm from "../upload/FileUploadForm";
 
-const OPTIONS: Option[] = [
-  { label: "nextjs", value: "Nextjs", disable: false },
-  { label: "Vite", value: "vite" },
-  { label: "Remix", value: "remix" },
-  { label: "React", value: "react" },
-];
-
 export default function Form({
   services,
   room,
   ps = [],
-  es = []
+  es = [],
 }: {
   services: Option[];
   room?: Room;
@@ -32,7 +25,7 @@ export default function Form({
 
   const functionToCall = room ? updateRoom.bind(null, room.id) : createRoom;
   const [primary, setPrimary] = useState<Option[]>(ps);
-  const [extra, setExtra] = useState<Option[]>(es);
+  // const [extra, setExtra] = useState<Option[]>(es);
 
   const [state, dispatch] = useFormState<State | undefined, FormData>(
     functionToCall,
@@ -61,6 +54,45 @@ export default function Form({
           >
             {state?.errors?.name &&
               state?.errors.name.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="primaryServices" className="px-1 md:text-right">
+            Servicios
+          </Label>
+          <Input
+            type="hidden"
+            name="primaryServices"
+            value={primary.map((e) => e.value)}
+          />
+          <div className="col-span-2">
+            <MultipleSelector
+              value={primary}
+              onChange={setPrimary}
+              defaultOptions={services}
+              placeholder="Seleccione...."
+              emptyIndicator={
+                <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                  No se encuentran resultados
+                </p>
+              }
+              className="overflow-hidden"
+              hidePlaceholderWhenSelected
+            />
+          </div>
+          <div
+            id="primaryServices-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.primaryServices &&
+              state?.errors.primaryServices.map((error: string) => (
                 <p className="text-xs text-red-500" key={error}>
                   {error}
                 </p>
@@ -158,42 +190,7 @@ export default function Form({
           </div>
         </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="primaryServices" className="px-1 md:text-right">
-            Servicios
-          </Label>
-          <Input type="hidden" name="primaryServices" value={primary.map((e) => e.value)} />
-          <div className="col-span-2">
-            <MultipleSelector
-              value={primary}
-              onChange={setPrimary}
-              defaultOptions={services}
-              placeholder="Seleccione...."
-              emptyIndicator={
-                <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
-                  No se encuentran resultados
-                </p>
-              }
-              className="overflow-hidden"
-              hidePlaceholderWhenSelected
-            />
-          </div>
-          <div
-            id="primaryServices-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.primaryServices &&
-              state?.errors.primaryServices.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+        {/* <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
           <Label htmlFor="extraServices" className="px-1 md:text-right">
             Servicios extra
           </Label>
@@ -226,11 +223,13 @@ export default function Form({
                 </p>
               ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col md:grid md:grid-cols-6 md:col-span-6  md:items-center  gap-2">
-
-        <FileUploadForm objectToSearch={room} />
+          <Label htmlFor="images" className="px-1 md:text-right">
+            Imágenes
+          </Label>
+          <FileUploadForm objectToSearch={room} />
         </div>
       </div>
       <div className="flex justify-end">

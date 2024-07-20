@@ -79,8 +79,10 @@ export default function Form({ experience }: { experience?: Experience }) {
           </div>
         </div>
         <div className="flex flex-col md:grid md:grid-cols-6 md:col-span-6  md:items-center  gap-2">
-
-        <FileUploadForm objectToSearch={experience} />
+          <Label htmlFor="images" className="px-1 md:text-right">
+            Imágenes
+          </Label>
+          <FileUploadForm objectToSearch={experience} />
         </div>
       </div>
       <div className="flex justify-end">

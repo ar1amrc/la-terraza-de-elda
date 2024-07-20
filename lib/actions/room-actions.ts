@@ -32,7 +32,7 @@ const RoomSchema = z.object({
     })
     .array()
     .min(1, { message: "Debe seleccionar al menos un servicio" }),
-  extraServices: z.string().array().optional(),
+  // extraServices: z.string().array().optional(),
 });
 
 const RoomCreate = RoomSchema.omit({ id: true });
@@ -44,7 +44,7 @@ export type State = {
     price?: string[];
     capacity?: string[];
     primaryServices?: string[];
-    extraServices?: string[];
+    // extraServices?: string[];
   };
   message?: string | null;
 };
@@ -63,7 +63,7 @@ export async function createRoom(
     primaryServices: formData.get("primaryServices")
       ? (formData.get("primaryServices") as string)?.split(",")
       : [],
-    extraServices: (formData.get("extraServices") as string)?.split(","),
+    // extraServices: (formData.get("extraServices") as string)?.split(","),
   });
 
   if (!validatedFields.success) {

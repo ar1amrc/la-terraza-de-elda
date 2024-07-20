@@ -7,7 +7,7 @@ export interface Room {
     price: number;
     capacity: number;
     primaryServices: Service[];
-    extraServices?: Service[];
+    // extraServices?: Service[];
 }
 
 export interface Service { 

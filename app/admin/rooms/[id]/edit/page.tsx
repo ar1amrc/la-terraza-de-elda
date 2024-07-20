@@ -29,16 +29,16 @@ export default async function Page({ params }: { params: { id: string } }) {
   });
 
  
-  const es =  rooms.extraServices ? Array.from(rooms.extraServices, (service) => {
-    return { label: service.name, value: service.id.toString() };
-  }) : [];
+  // const es =  rooms.extraServices ? Array.from(rooms.extraServices, (service) => {
+  //   return { label: service.name, value: service.id.toString() };
+  // }) : [];
 
 
   return (
     <main>
       <BreadcumbAdmin links={links} page="Editar Habitación" />
 
-      <Form services={services} room={rooms} ps={ps} es={es} />
+      <Form services={services} room={rooms} ps={ps} />
     </main>
   );
 }
