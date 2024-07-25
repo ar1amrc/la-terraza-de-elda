@@ -53,8 +53,8 @@ export default function Form({
   const [extraServices, setExtraServices] = useState<Option[]>(extra);
   const [experiencesSelected, setExperiencesSelected] = useState<Option[]>(exp);
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 3),
+    from: reservation?.startDate ? new Date(reservation.startDate) : new Date(),
+    to: reservation?.endDate ? new Date(reservation.endDate) : addDays(new Date(), 3),
   });
 
   const functionToCall = reservation
@@ -89,6 +89,227 @@ export default function Form({
           >
             {state?.errors?.guestsData &&
               state?.errors.guestsData.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="email" className="px-1 md:text-right">
+            Email
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            className="col-span-2"
+            aria-describedby="email-error"
+            defaultValue={reservation?.email}
+          />
+          <div
+            id="email-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.email &&
+              state?.errors.email.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="date" className="px-1 md:text-right">
+            Fechas
+          </Label>
+          <Input
+            type="hidden"
+            name="date"
+            value={JSON.stringify(date)}
+          />
+          <div className="grid gap-2 col-span-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  id="date"
+                  variant={"outline"}
+                  className={cn(
+                    "justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date?.from ? (
+                    date.to ? (
+                      <>
+                        {format(date.from, "LLL dd, y", {locale: es})} -{" "}
+                        {format(date.to, "LLL dd, y", {locale: es})}
+                      </>
+                    ) : (
+                      format(date.from, "LLL dd, y")
+                    )
+                  ) : (
+                    <span>Seleccione las fechas</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  defaultMonth={date?.from}
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={2}
+                  disabled={(date) => {
+                    const yesterday = new Date();
+                    yesterday.setDate(new Date().getDate() - 1);
+                    return date < yesterday;
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div
+            id="email-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.email &&
+              state?.errors.email.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="status" className="px-1 md:text-right">
+            Habitación
+          </Label>
+          <div className="col-span-2">
+            <Select name="room" defaultValue={reservation?.roomId.toString()}>
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccione..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {rooms.map((room: Room) => (
+                    <SelectItem key={room.id} value={room.id.toString()}>
+                      {room.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div
+            id="status-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.status &&
+              state?.errors.status.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="status" className="px-1 md:text-right">
+            Status
+          </Label>
+          <div className="col-span-2">
+            <Select name="status"  defaultValue={reservation?.status}>
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccione..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="confirmed">Confirmada</SelectItem>
+                  <SelectItem value="pending">Pendiente</SelectItem>
+                  <SelectItem value="cancelled">Cancelada</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div
+            id="status-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.status &&
+              state?.errors.status.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="guests" className="px-1 md:text-right">
+            Huespédes
+          </Label>
+          <Input
+            type="number"
+            min="1"
+            max={6}
+            step="1"
+            defaultValue={reservation?.guests ?? 1}
+            id="guests"
+            name="guests"
+            className="col-span-2"
+            aria-describedby="guests-error"
+          />
+          <div
+            id="guests-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.guests &&
+              state?.errors.guests.map((error: string) => (
+                <p className="text-xs text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}
+          </div>
+        </div>
+        
+        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
+          <Label htmlFor="amount" className="px-1 md:text-right">
+            Precio
+          </Label>
+          <Input
+            type="number"
+            min="0"
+            step="0.01"
+            defaultValue={reservation?.amount ?? 0}
+            id="amount"
+            name="amount"
+            className="col-span-2"
+            aria-describedby="amount-error"
+          />
+          <div
+            id="amount-error"
+            aria-live="polite"
+            aria-atomic="true"
+            className="col-start-2 col-span-2"
+          >
+            {state?.errors?.amount &&
+              state?.errors.amount.map((error: string) => (
                 <p className="text-xs text-red-500" key={error}>
                   {error}
                 </p>
@@ -194,222 +415,6 @@ export default function Form({
           >
             {state?.errors?.experiences &&
               state?.errors.experiences.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="status" className="px-1 md:text-right">
-            Status
-          </Label>
-          <div className="col-span-2">
-            <Select name="status">
-              <SelectTrigger className="text-gray-500">
-                <SelectValue placeholder="Seleccione..." />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="confirmed">Confirmada</SelectItem>
-                  <SelectItem value="pending">Pendiente</SelectItem>
-                  <SelectItem value="cancelled">Cancelada</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div
-            id="status-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.status &&
-              state?.errors.status.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="status" className="px-1 md:text-right">
-            Habitación
-          </Label>
-          <div className="col-span-2">
-            <Select name="room">
-              <SelectTrigger className="text-gray-500">
-                <SelectValue placeholder="Seleccione..." />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {rooms.map((room: Room) => (
-                    <SelectItem key={room.id} value={room.id.toString()}>
-                      {room.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div
-            id="status-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.status &&
-              state?.errors.status.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="amount" className="px-1 md:text-right">
-            Precio
-          </Label>
-          <Input
-            type="number"
-            min="0"
-            step="0.01"
-            defaultValue={reservation?.amount}
-            id="amount"
-            name="amount"
-            className="col-span-2"
-            aria-describedby="amount-error"
-          />
-          <div
-            id="amount-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.amount &&
-              state?.errors.amount.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="guests" className="px-1 md:text-right">
-            Huespédes
-          </Label>
-          <Input
-            type="number"
-            min="1"
-            max={6}
-            step="1"
-            defaultValue={reservation?.guests}
-            id="guests"
-            name="guests"
-            className="col-span-2"
-            aria-describedby="guests-error"
-          />
-          <div
-            id="guests-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.guests &&
-              state?.errors.guests.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="email" className="px-1 md:text-right">
-            Email
-          </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            className="col-span-2"
-            aria-describedby="email-error"
-            defaultValue={reservation?.email}
-          />
-          <div
-            id="email-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.email &&
-              state?.errors.email.map((error: string) => (
-                <p className="text-xs text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col md:grid md:grid-cols-3 md:col-span-3 md:items-center gap-2">
-          <Label htmlFor="date" className="px-1 md:text-right">
-            Fechas
-          </Label>
-          <div className="grid gap-2 col-span-2">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="date"
-                  variant={"outline"}
-                  className={cn(
-                    "justify-start text-left font-normal",
-                    !date && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {date?.from ? (
-                    date.to ? (
-                      <>
-                        {format(date.from, "LLL dd, y")} -{" "}
-                        {format(date.to, "LLL dd, y")}
-                      </>
-                    ) : (
-                      format(date.from, "LLL dd, y")
-                    )
-                  ) : (
-                    <span>Pick a date</span>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  initialFocus
-                  mode="range"
-                  defaultMonth={date?.from}
-                  selected={date}
-                  onSelect={setDate}
-                  numberOfMonths={2}
-                  disabled={(date) => {
-                    const yesterday = new Date();
-                    yesterday.setDate(new Date().getDate() - 1);
-                    return date < yesterday;
-                  }}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          <div
-            id="email-error"
-            aria-live="polite"
-            aria-atomic="true"
-            className="col-start-2 col-span-2"
-          >
-            {state?.errors?.email &&
-              state?.errors.email.map((error: string) => (
                 <p className="text-xs text-red-500" key={error}>
                   {error}
                 </p>

@@ -62,9 +62,6 @@ export async function updateService(
   formData: FormData
 ) {
 
-console.log(formData);
-
-
   const priceFD = formData.get("price") ? parseFloat(formData.get("price") as string) : undefined ;
 
   const validatedFields = ServiceCreate.safeParse({

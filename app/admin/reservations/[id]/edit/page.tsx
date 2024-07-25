@@ -1,7 +1,12 @@
-import { getServicesById } from "@/lib/data";
+import {
+  getExperiencesSelect,
+  getExtraServicesSelect,
+  getReservationsById,
+  getRooms,
+} from "@/lib/data";
 import { notFound } from "next/navigation";
-import Form from "@/components/admin/forms/service-form";
 import BreadcumbAdmin from "@/components/admin/breadcumb-admin";
+import Form from "@/components/admin/forms/reservation.form";
 
 const links = [
   {
@@ -10,23 +15,37 @@ const links = [
   },
   {
     label: "Servicios",
-    href: "/admin/services",
+    href: "/admin/reservations",
   },
 ];
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 
-  const service = await getServicesById(id)
+  const reservation = await getReservationsById(id);
 
-  if (!service) {
+  if (!reservation) {
     //todo: cambiar condicion
     notFound();
   }
 
-  return <main>
-    <BreadcumbAdmin links={links} page="Editar Servicio"/>
-      
-      <Form  service={service}/>
-  </main>;
+  const rooms = await getRooms();
+  const experiences = await getExperiencesSelect();
+  const services = await getExtraServicesSelect();
+
+  const extra = reservation.extraServices ? Array.from(reservation.extraServices, (service) => {
+    return { label: service.name, value: service.id.toString() };
+  }) : [];
+
+  const exp = reservation.experiences ? Array.from(reservation.experiences, (experience) => {
+    return { label: experience.name, value: experience.id.toString() };
+  }) : [];
+
+  return (
+    <div>
+      <BreadcumbAdmin links={links} page="Editar Reserva" />
+
+      <Form rooms={rooms} experiences={experiences} services={services} reservation={reservation} exp={exp} extra={extra}/>
+    </div>
+  );
 }

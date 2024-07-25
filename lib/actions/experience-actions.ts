@@ -79,7 +79,6 @@ export async function updateExperience(
   prevState: State | undefined,
   formData: FormData
 ) {
-  console.log(formData);
 
   const priceFD = formData.get("price")
     ? parseFloat(formData.get("price") as string)

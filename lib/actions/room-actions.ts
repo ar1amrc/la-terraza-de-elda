@@ -108,7 +108,6 @@ export async function updateRoom(
   prevState: State | undefined,
   formData: FormData
 ) {
-  console.log(formData);
 
   const priceFD = formData.get("price")
     ? parseFloat(formData.get("price") as string)
@@ -146,7 +145,7 @@ export async function deleteRoom(id: number) {
 }
 
 export async function changeThumbnail(id: number | string, image?: string) {
-  console.log(image);
+  console.log(image); //todo: cambiar esto
   revalidatePath("/admin/rooms");
 
 }
