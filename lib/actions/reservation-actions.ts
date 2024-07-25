@@ -32,6 +32,8 @@ export type State = {
     status?: string[];
     experiences?: string[];
     email?: string[];
+    extraServices?: string[];
+    additionalData?: string[];
   };
   message?: string | null;
 };
@@ -41,6 +43,8 @@ export async function createReservation(
   formData: FormData
 ) {
 
+  console.log(formData);
+  
   const validatedFields = ReservationCreate.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),

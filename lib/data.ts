@@ -17,6 +17,21 @@ export async function getServicesSelect(): Promise<
   return services;
 }
 
+export async function getExtraServicesSelect(): Promise<
+  { label: string; value: string }[]
+> {
+  const services = Services.filter((services) => services.price != null);
+
+  return Array.from(services, (service) => {
+    return {
+      label: `${service.name} - ${service.price}`,
+      value: service.id.toString(),
+    };
+  });
+
+  // return services;
+}
+
 export async function getServicesById(
   id: string | number
 ): Promise<Service | undefined> {
@@ -30,7 +45,15 @@ export async function getUsers(): Promise<User[]> {
 export async function getExperiences(): Promise<Experience[]> {
   return Experiences;
 }
+export async function getExperiencesSelect(): Promise<
+  { label: string; value: string }[]
+> {
+  const experiences = Array.from(Experiences, (experience) => {
+    return { label: experience.name, value: experience.id.toString() };
+  });
 
+  return experiences;
+}
 export async function getExperiencesById(
   id: string | number
 ): Promise<Experience | undefined> {

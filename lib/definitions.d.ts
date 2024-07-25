@@ -32,11 +32,13 @@ export interface Reservation {
     startDate: string;
     endDate: string;
     guests: number;
+    email?: string;
     guestsData:  string;
+    additionalData?: String;  // for example, custom fields for each experience
     amount: number;
     status: 'pending' | 'confirmed' | 'cancelled' ; 
-    experiences?: number[];
-    email?: string;
+    experiences?: Experience[];
+    extraServices?: Service[];
 }
 
 export interface User {

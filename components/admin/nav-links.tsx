@@ -2,7 +2,7 @@
 
 
 import clsx from 'clsx';
-import { CalendarIcon, CarFrontIcon, DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
+import { BedDoubleIcon, CalendarIcon, CarFrontIcon, DockIcon, HomeIcon, UserX2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: 'Home', href: '/admin', icon: HomeIcon },
-  { name: 'Habitaciones', href: '/admin/rooms', icon: HomeIcon },
+  { name: 'Habitaciones', href: '/admin/rooms', icon: BedDoubleIcon },
   {
     name: 'Servicios',
     href: '/admin/services',
