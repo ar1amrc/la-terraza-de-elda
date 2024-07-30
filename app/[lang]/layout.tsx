@@ -4,6 +4,7 @@ import { NavMenu } from "@/components/header/NavMenu";
 import { Locale } from "@/i18n-config";
 import { getDictionary } from "@/lib/get-dictionaries";
 import { headers } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function Layout({
@@ -19,7 +20,7 @@ export default async function Layout({
     <>
       <header className="fixed top-0 w-full bg-white p-3 px-5 opacity-80 z-50">
         <div className="flex justify-between w-full">
-          <p>Logo</p>
+          <Image src='/images/logo.png' alt="logo" className="rounded-full aspect-square" width={40} height={40}  />
           <NavMenu dictionary={dictionary}/>
           <DropdownMenuComponenent dictionary={dictionary}/>
         </div>
