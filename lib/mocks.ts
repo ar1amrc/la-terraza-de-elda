@@ -3,29 +3,18 @@ import { Experience, Reservation, Room, Service, User } from "./definitions";
 export const Rooms: Room[] = [
   {
     id: 1,
-    name: "Deluxe Suite",
+    name: "Habitación 1",
     description: "A luxurious suite with a beautiful sea view.",
     images: [
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
-      "deluxe_suite_1.png",
-      "deluxe_suite_2.jpg",
+      "1.jpeg",
+      "2.jpeg",
+      "3.jpeg",
+      "4.jpeg",
+      "5.jpeg",
     ],
     price: 300,
     capacity: 4,
-    thumbnail: "deluxe_suite_2.jpg",
+    thumbnail: "2.jpeg",
     primaryServices: [
       {
         id: 1,
@@ -45,7 +34,16 @@ export const Rooms: Room[] = [
     id: 2,
     name: "Standard Room",
     description: "A comfortable room for budget travelers.",
-    images: ["standard_room_1.jpg"],
+    images: [
+      "1.jpeg",
+      "2.jpeg",
+      "3.jpeg",
+      "4.jpeg",
+      "5.jpeg",
+      "6.jpeg",
+      "7.jpeg",
+    ],
+    thumbnail: "1.jpeg",
     price: 100,
     capacity: 2,
     primaryServices: [
@@ -190,7 +188,7 @@ export const Reservations: Reservation[] = [
     guestsData: "Jane Doe, Bob Johnson, Alice Smith",
     additionalData: '{"phone": "987-654-3210"}',
     amount: 100,
-    status: "pending",
+    status: "confirmed",
     experiences: [
       {
         id: 1,

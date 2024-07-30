@@ -35,7 +35,7 @@ export function middleware(request: NextRequest) {
       "/favicon.ico",
       // Your other files in `public`
     ].includes(pathname) ||
-    pathname.includes("/images")
+    pathname.includes("/images")  ||   pathname.includes("/videos") 
   )
     return;
 

@@ -17,7 +17,7 @@ export default async function Layout({
   
   return (
     <>
-      <header className="fixed top-0 w-full bg-white p-3 px-5 opacity-80">
+      <header className="fixed top-0 w-full bg-white p-3 px-5 opacity-80 z-50">
         <div className="flex justify-between w-full">
           <p>Logo</p>
           <NavMenu dictionary={dictionary}/>
