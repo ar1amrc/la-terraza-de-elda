@@ -1,6 +1,6 @@
 export default function Page() {
     return (
-     <section>
+     <section className="pt-16">
       <p>paginma gallery</p>
      </section>
     );

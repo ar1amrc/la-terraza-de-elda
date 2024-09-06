@@ -1,4 +1,4 @@
-
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -14,39 +14,25 @@ import { cn } from "@/lib/utils";
 import { addDays, format } from "date-fns";
 import { es } from "date-fns/locale";
 import {
-  AirVent,
-  BedDouble,
   CalendarIcon,
-  ChevronRight,
-  ChevronRightIcon,
-  EggFried,
-  MapPin,
   SearchIcon,
-  Tv,
   UsersIcon,
-  WashingMachine,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense, useState } from "react";
+import {  useState } from "react";
 import { DateRange } from "react-day-picker";
-import RoomsSection from "@/components/sections/RoomsSection";
-import ReviewsSection from "@/components/sections/ReviewsSection";
-import ServiceSection from "@/components/sections/ServicesSection";
-import HistorySection from "@/components/sections/HistorySection";
-import PresentationSection from "@/components/sections/PresentationSection";
 
-export default function Home() {
-  // const [date, setDate] = useState<DateRange | undefined>({
-  //   from: new Date(),
-  //   to: addDays(new Date(), 3),
-  // });
+export default function PresentationSection() {
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 3),
+  });
 
   return (
     <>
-      {/* <section className="flex justify-center items-center w-full">
+     <section className="flex justify-center items-center w-full">
         <video
-          className="w-full drop-shadow-md rounded-md md:w-auto md:aspect-video md:max-h-[540px] pt-16"
+          // className="w-full drop-shadow-md rounded-md md:w-auto md:aspect-video md:max-h-[540px] pt-16"
+        className="object-cover  w-full md:max-h-[540px] pt-16  "
           autoPlay
           loop
           muted
@@ -55,7 +41,7 @@ export default function Home() {
           <source src="/videos/promo.ogg" type="video/ogg" />
           Your browser does not support the video tag.
         </video>
-        <video
+        {/* <video
           className="object-cover absolute w-full h-[540px] -z-10 blur-md hidden md:block"
           autoPlay
           loop
@@ -64,7 +50,7 @@ export default function Home() {
           <source src="/videos/promo.mp4" type="video/mp4" />
           <source src="/videos/promo.ogg" type="video/ogg" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
       </section>
 
       <section className="flex items-center justify-center">
@@ -166,18 +152,6 @@ export default function Home() {
             </div>
           </form>
         </div>
-      </section> */}
-<PresentationSection />
-      <HistorySection />
-      <Suspense fallback={<>
-        hola</>}>
-        <RoomsSection />
-      </Suspense>
-      {/* <ServiceSection /> */}
-      <ReviewsSection />
-
-      <section className="flex  justify-center items-center w-full h-64 bg-green-200">
-        <p>Faq</p>
       </section>
     </>
   );

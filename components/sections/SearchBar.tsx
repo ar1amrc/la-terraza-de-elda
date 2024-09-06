@@ -15,10 +15,10 @@ import { useState } from "react";
 import { DateRange } from "react-day-picker";
 
 export default function SearchBar() {
-//   const [date, setDate] = useState<DateRange | undefined>({
-//     from: new Date(),
-//     to: addDays(new Date(), 3),
-//   });
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 3),
+  });
   return (
     <div className=" bg-cyan-800 border-2  border-red-600  rounded-sm">
       <p className="text-lg">Fechas Entrada - Salida:</p>

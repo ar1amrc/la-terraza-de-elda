@@ -110,7 +110,7 @@ export default async function Layout({
                 target="_blank"
                 href="https://www.facebook.com/profile.php?id=100063631778007"
               >
-                <FacebookIcon />
+                <FacebookIcon className="hover:scale-110 hover:text-yellow-100"/>
               </Link>
             </Button>
             <Button>
@@ -118,7 +118,7 @@ export default async function Layout({
                 target="_blank"
                 href="https://www.instagram.com/terrazadeelda?igsh=MTMwaHprM3VieTAwaQ=="
               >
-                <InstagramIcon />
+                <InstagramIcon className="hover:scale-110 hover:text-yellow-100"/>
               </Link>
             </Button>
           </div>
