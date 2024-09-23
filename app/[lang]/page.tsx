@@ -1,5 +1,3 @@
-
-
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -35,6 +33,7 @@ import ReviewsSection from "@/components/sections/ReviewsSection";
 import ServiceSection from "@/components/sections/ServicesSection";
 import HistorySection from "@/components/sections/HistorySection";
 import PresentationSection from "@/components/sections/PresentationSection";
+import FaqSection from "@/components/sections/FaqSection";
 
 export default function Home() {
   // const [date, setDate] = useState<DateRange | undefined>({
@@ -167,18 +166,14 @@ export default function Home() {
           </form>
         </div>
       </section> */}
-<PresentationSection />
+      <PresentationSection />
       <HistorySection />
-      <Suspense fallback={<>
-        hola</>}>
+      <Suspense fallback={<>hola</>}>
         <RoomsSection />
       </Suspense>
-      {/* <ServiceSection /> */}
       <ReviewsSection />
-
-      <section className="flex  justify-center items-center w-full h-64 bg-green-200">
-        <p>Faq</p>
-      </section>
+      <ServiceSection />
+      <FaqSection />
     </>
   );
 }

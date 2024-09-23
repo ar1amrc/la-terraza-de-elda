@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import {  useState } from "react";
 import { DateRange } from "react-day-picker";
+import SearchBar from "./SearchBar";
 
 export default function PresentationSection() {
   const [date, setDate] = useState<DateRange | undefined>({
@@ -54,7 +55,7 @@ export default function PresentationSection() {
       </section>
 
       <section className="flex items-center justify-center">
-        <div className="grid grid-cols-6 gap-2 w-11/12 md:w-4/6 h-20 -mt-4 rounded-sm bg-white drop-shadow-lg z-10 px-1 ">
+        {/* <div className="grid grid-cols-6 gap-2 w-11/12 md:w-4/6 h-20 -mt-4 rounded-sm bg-white drop-shadow-lg z-10 px-1 ">
           <form
             action={search}
             className="grid grid-cols-6 gap-2 items-center justify-center  col-span-6"
@@ -151,7 +152,8 @@ export default function PresentationSection() {
               </Button>
             </div>
           </form>
-        </div>
+        </div> */}
+        <SearchBar />
       </section>
     </>
   );

@@ -2,7 +2,7 @@ import { AirVent, BedDouble, EggFried, MapPin, Tv, WashingMachine } from "lucide
 
 export default function ServiceSection() {
   return (
-    <section className="flex justify-evenly  w-full h-64 mt-10">
+    <section className="flex justify-evenly  w-full h-64 mt-16">
     <div className="flex flex-col gap-10">
       <h1 className="text-xl text-center">Servicios incluidos</h1>
       <div className="flex gap-10 items-start justify-center">

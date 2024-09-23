@@ -18,7 +18,7 @@ export default function ReviewsSection() {
 
 
   return (
-    <section className="flex flex-col justify-center items-center w-full py-4">
+    <section className="flex flex-col justify-center items-center w-full py-4 mt-10">
         <span className="text-3xl p-3"> Nuestros huespédes opinan: </span>
         <Carousel
           plugins={[plugin.current]}
@@ -26,8 +26,8 @@ export default function ReviewsSection() {
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent className="pl-4">
-            <CarouselItem className=" p-2 basis-1/3">
+          <CarouselContent className="px-4">
+            <CarouselItem className=" p-2 lg:basis-1/3">
               <div className="flex flex-col shadow-md shadow-slate-400  rounded-md bg-zinc-50 p-2 gap-2 h-60">
                 <div className="flex gap-3">
                   <Avatar>
@@ -57,7 +57,7 @@ export default function ReviewsSection() {
               </div>
             </CarouselItem>
 
-            <CarouselItem className=" p-2 basis-1/3">
+            <CarouselItem className=" p-2 lg:basis-1/3">
               <div className="flex flex-col shadow-md shadow-slate-400  rounded-md bg-zinc-50 p-2 gap-2 h-60">
                 <div className="flex gap-3">
                   <Avatar>
@@ -84,7 +84,7 @@ export default function ReviewsSection() {
               </div>
             </CarouselItem>
 
-            <CarouselItem className=" p-2 basis-1/3">
+            <CarouselItem className=" p-2 lg:basis-1/3">
               <div className="flex flex-col shadow-md shadow-slate-400  rounded-md bg-zinc-50 p-2 gap-2 h-60">
                 <div className="flex gap-3">
                   <Avatar>
@@ -110,7 +110,7 @@ export default function ReviewsSection() {
               </div>
             </CarouselItem>
 
-            <CarouselItem className=" p-2 basis-1/3">
+            <CarouselItem className=" p-2 lg:basis-1/3">
               <div className="flex flex-col shadow-md shadow-slate-400  rounded-md bg-zinc-50 p-2 gap-2 h-60 group hover:h-80 hover:transition-all">
                 <div className="flex gap-3">
                   <Avatar>
@@ -143,8 +143,8 @@ export default function ReviewsSection() {
               </div>
             </CarouselItem>
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden lg:flex" />
+          <CarouselNext className="hidden lg:flex"/>
         </Carousel>
 
         {/* <p>Claudia Tarin Herrera Maps</p> <p>Es un lugar increible. Te maravilla su fabulosa arquitecta, sus hermosas vistas y lo mas importante la atención y alojamiento, que para mi en este lugar es impagable, no podria ser mejor. Recomiendo este lugar para aquellos que quieran privacidad y a los q quieran conocer la Habana, esta ubicado en una de las calles principales y desde ahi puedes desplazarte a cualquier punto de la Habana</p>

@@ -1,3 +1,4 @@
+import { iconsList } from "@/components/icons/icons";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -14,8 +15,20 @@ export function lt(lang: string, text: string) {
   return text;
 }
 
-export function objectType(obj : any) : string{
-  if(obj.name && obj.description && obj.images && obj.capacity && obj.primaryServices) return 'room'
-  if(obj.name && obj.description && obj.images) return 'experience'
-  return 'object'
+export function objectType(obj: any): string {
+  if (
+    obj.name &&
+    obj.description &&
+    obj.images &&
+    obj.capacity &&
+    obj.primaryServices
+  )
+    return "room";
+  if (obj.name && obj.description && obj.images) return "experience";
+  return "object";
+}
+
+export function getIcon(icon: string | undefined) {
+  if (icon === undefined) return null;
+  if (Object.keys(iconsList).some( (key) => key = icon)) return iconsList[icon];
 }

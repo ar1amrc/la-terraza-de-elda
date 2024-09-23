@@ -1,10 +1,11 @@
+import { lora } from "@/app/fonts";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function HistorySection() {
   return (
-    <section className="flex justify-around items-center w-full px-2 lg:px-40 gap-10 mt-8">
+    <section className="flex flex-col md:flex-row justify-around items-center w-full px-2 lg:px-40 gap-10 mt-8">
       <Image
         src="/images/fachada.jpg"
         alt="fachada"
@@ -12,8 +13,8 @@ export default function HistorySection() {
         width={200}
         height={200}
       />
-      <div className="flex flex-col items-start justify-center gap-3 w-4/5">
-        <h2 className="font-medium text-lg text-pretty italic">
+      <div className="flex flex-col items-center md:items-start justify-center gap-3 w-4/5">
+        <h2 className={`${lora.className} font-semibold text-lg text-pretty italic `}>
           La Terraza de Elda se encuentra ubicada en la última planta de un
           palacete de estilo ecléctico construido en la década de 1930, tras la
           colonización por parte de las clases burguesas de los terrenos que se
@@ -25,7 +26,7 @@ export default function HistorySection() {
         </h2>
         <Link
           href="/history"
-          className="flex items-center justify-center hover:scale-105"
+          className="flex items-center justify-center hover:scale-105 italic"
         >
           {" "}
           Continuar leyendo <ChevronRight width={16} height={16} />

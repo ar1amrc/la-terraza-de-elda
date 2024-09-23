@@ -3,18 +3,13 @@ import { Experience, Reservation, Room, Service, User } from "./definitions";
 export const Rooms: Room[] = [
   {
     id: 1,
-    name: "Habitación 1",
-    description: "A luxurious suite with a beautiful sea view.",
-    images: [
-      "1.jpeg",
-      "2.jpeg",
-      "3.jpeg",
-      "4.jpeg",
-      "5.jpeg",
-    ],
+    name: "Habitación Familiar",
+    description:
+      "Una habitación muy amplia con una cama matrimonio y otra personal, cuenta con cocina totalmente equipada y un gran armario. Decorada con elementos del siglo XX dandole un toque tradicional mezclando con el diseño moderno.",
+    images: ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg"],
     price: 300,
     capacity: 4,
-    thumbnail: "2.jpeg",
+    thumbnail: "3.jpeg",
     primaryServices: [
       {
         id: 1,
@@ -32,7 +27,7 @@ export const Rooms: Room[] = [
   },
   {
     id: 2,
-    name: "Standard Room",
+    name: "Habitación Amor",
     description: "A comfortable room for budget travelers.",
     images: [
       "1.jpeg",
@@ -43,7 +38,7 @@ export const Rooms: Room[] = [
       "6.jpeg",
       "7.jpeg",
     ],
-    thumbnail: "1.jpeg",
+    thumbnail: "3.jpeg",
     price: 100,
     capacity: 2,
     primaryServices: [
@@ -51,6 +46,13 @@ export const Rooms: Room[] = [
         id: 1,
         name: "WiFi",
         description: "High-speed wireless internet.",
+        icon: "wifi",
+      },
+      {
+        id: 2,
+        name: "Breakfast",
+        description: "Complimentary breakfast included.",
+        icon: "egg-fried",
       },
     ],
   },

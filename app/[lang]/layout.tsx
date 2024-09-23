@@ -3,6 +3,7 @@ import { NavMenu } from "@/components/header/NavMenu";
 import { FacebookIcon } from "@/components/icons/FacebookIcon";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 import LocaleSwitcher from "@/components/locale-switcher";
+import SearchBar from "@/components/sections/SearchBar";
 import { Button } from "@/components/ui/button";
 import { Locale } from "@/i18n-config";
 import { getDictionary } from "@/lib/get-dictionaries";
@@ -20,8 +21,8 @@ export default async function Layout({
 
   return (
     <>
-      <header className="fixed top-0 w-full bg-white p-3 px-5 opacity-80 z-50">
-        <div className="flex justify-between w-full">
+      <header id='nav' className="fixed top-0 w-full bg-white p-3 px-5 z-50">
+        <div  className="flex justify-between w-full">
           <Image
             src="/images/logo.png"
             alt="logo"
@@ -29,6 +30,7 @@ export default async function Layout({
             width={40}
             height={40}
           />
+          {/* <SearchBar className="grid grid-cols-6 gap-2 w-2/5 h-20 px-1" nav/> */}
           <NavMenu dictionary={dictionary} />
           <DropdownMenuComponenent dictionary={dictionary} />
         </div>
