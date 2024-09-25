@@ -21,16 +21,19 @@ export default async function Layout({
 
   return (
     <>
-      <header id='nav' className="fixed top-0 w-full bg-white p-3 px-5 z-50">
-        <div  className="flex justify-between w-full">
-          <Image
-            src="/images/logo.png"
-            alt="logo"
-            className="rounded-full aspect-square"
-            width={40}
-            height={40}
-          />
-          {/* <SearchBar className="grid grid-cols-6 gap-2 w-2/5 h-20 px-1" nav/> */}
+      <header className="fixed top-0 w-full bg-white p-3 px-5 z-50">
+        <div className="flex justify-between w-full">
+          <div className="flex gap-2 w-full">
+            <Image
+              src="/images/logo.png"
+              alt="logo"
+              className="rounded-full aspect-square"
+              width={40}
+              height={40}
+            />
+            <SearchBar nav />
+          </div>
+
           <NavMenu dictionary={dictionary} />
           <DropdownMenuComponenent dictionary={dictionary} />
         </div>
@@ -87,20 +90,29 @@ export default async function Layout({
               </a>
             </li>
             <li>
-              <Link href="">Política de Privacidad</Link>
+              <Link href="/privacypolicy">Política de Privacidad</Link>
             </li>
             <li>
-              <Link href="">Contacto</Link>
+              <Link href="/contact">Contacto</Link>
             </li>
-            <li>
+            {/* <li>
               <LocaleSwitcher />
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="py-4">
           <ul>
             <li>
               <Link href="/history">{dictionary.header.History}</Link>
+            </li>
+            <li>
+              <Link href="/rooms">{dictionary.header.Rooms}</Link>
+            </li>
+            <li>
+              <Link href="/gallery">{dictionary.header.Gallery}</Link>
+            </li>
+            <li>
+              <LocaleSwitcher />
             </li>
           </ul>
         </div>
@@ -112,7 +124,7 @@ export default async function Layout({
                 target="_blank"
                 href="https://www.facebook.com/profile.php?id=100063631778007"
               >
-                <FacebookIcon className="hover:scale-110 hover:text-yellow-100"/>
+                <FacebookIcon className="hover:scale-110 hover:text-yellow-100" />
               </Link>
             </Button>
             <Button>
@@ -120,7 +132,7 @@ export default async function Layout({
                 target="_blank"
                 href="https://www.instagram.com/terrazadeelda?igsh=MTMwaHprM3VieTAwaQ=="
               >
-                <InstagramIcon className="hover:scale-110 hover:text-yellow-100"/>
+                <InstagramIcon className="hover:scale-110 hover:text-yellow-100" />
               </Link>
             </Button>
           </div>

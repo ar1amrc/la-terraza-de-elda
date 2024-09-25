@@ -16,7 +16,7 @@ export function NavMenu({ dictionary }: any) {
   const pathname = usePathname();
 
   return (
-    <NavigationMenu className="hidden sm:flex justify-end w-full">
+    <NavigationMenu className="hidden lg:flex justify-end w-full">
       <NavigationMenuList className="flex justify-end w-full">
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>

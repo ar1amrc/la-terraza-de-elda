@@ -66,6 +66,26 @@
   }
 }
 
+#nav {
+  animation: mov alternate both;
+  animation-timeline: scroll(root);
+  animation-range: entry 500px cover 600px;
+}
+
+@keyframes mov {
+  0% {
+    transform: translateY(-55px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  90% {
+    scale: 1.05;
+  }
+  100% {
+    scale: 1;
+  }
+}
 
 @layer base {
   * {

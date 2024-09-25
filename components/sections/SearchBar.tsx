@@ -11,36 +11,42 @@ import {
 } from "@/components/ui/popover";
 import { search } from "@/lib/actions/search-actions";
 import { cn } from "@/lib/utils";
+import clsx from "clsx";
 import { addDays, format } from "date-fns";
 import { es } from "date-fns/locale";
 import { CalendarIcon, SearchIcon, UsersIcon } from "lucide-react";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 
-export default function SearchBar({ className, nav = false }: { className?: string, nav?: boolean }) {
+export default function SearchBar({ nav = false }: { nav?: boolean }) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
   });
-
+  const id = nav ? "nav" : "";
 
   return (
-    <div className={className ??
-      "grid grid-cols-6 gap-2 w-11/12 md:w-4/6 h-20 -mt-4 rounded-sm bg-white drop-shadow-lg z-10 px-1 "}>
+    <div
+      id={id}
+      className={clsx("flex gap-2 px-1", {
+        " ": nav,
+        "grid grid-cols-6 w-11/12 md:w-4/6 h-20 -mt-4 rounded-sm bg-white drop-shadow-lg z-10  ":
+          !nav,
+      })}
+    >
       <form
         action={search}
         className="grid grid-cols-6 gap-2 items-center justify-center  col-span-6"
       >
         <div className="col-span-4">
           <div className="flex flex-col justify-between">
-            {!nav &&
-            <div className="flex items-center justify-around">
-              <span>Entrada</span>
+            {!nav && (
+              <div className="flex items-center justify-around">
+                <span>Entrada</span>
 
-              <span>Salida</span>
-            </div>
-
-            }
+                <span>Salida</span>
+              </div>
+            )}
 
             <div className="grid gap-2 col-span-2">
               <Popover>
@@ -59,12 +65,12 @@ export default function SearchBar({ className, nav = false }: { className?: stri
                         <div className="flex flex-1 items-center justify-around">
                           <span>
                             {" "}
-                            {format(date.from, "LLL dd, y", { locale: es })}
+                            {format(date.from, "d/M/y", { locale: es })}
                           </span>
                           <span> - </span>
                           <br className="hidden md:block lg:hidden" />
                           <span>
-                            {format(date.to, "LLL dd, y", { locale: es })}
+                            {format(date.to, "d/M/y", { locale: es })}
                           </span>
                         </div>
                       ) : (
@@ -95,13 +101,20 @@ export default function SearchBar({ className, nav = false }: { className?: stri
             </div>
           </div>
         </div>
-        <div className="flex  flex-1 flex-col items-center justify-center h-16 gap-1  ">
-          <Label htmlFor="guests" className="pt-1 md:text-right">
-            <span className="block sm:hidden">
-              <UsersIcon className="h-4 w-4" />
-            </span>
-           {!nav && <span className="hidden sm:block">Huespédes</span> } 
-          </Label>
+        <div
+          className={clsx("", {
+            "w-12": nav,
+            "flex flex-1 flex-col items-center justify-center h-16 gap-1": !nav,
+          })}
+        >
+          {!nav && (
+            <Label htmlFor="guests" className="pt-1 md:text-right">
+              <span className="block sm:hidden">
+                <UsersIcon className="h-4 w-4" />
+              </span>
+              <span className="hidden sm:block">Huespédes</span>
+            </Label>
+          )}
           <Input
             type="number"
             min="1"
@@ -113,12 +126,22 @@ export default function SearchBar({ className, nav = false }: { className?: stri
             aria-describedby="guests-error"
           />
         </div>
-        <div className=" flex flex-col h-full py-2.5 justify-end sm:m-auto ">
+        <div
+          className={clsx(" flex flex-col h-full justify-end sm:m-auto ", {
+            "": nav,
+            "py-2.5 ": !nav,
+          })}
+        >
           <Button>
-            <span className="block sm:hidden">
+            <span
+              className={clsx("", {
+                "": nav,
+                "block sm:hidden": !nav,
+              })}
+            >
               <SearchIcon className="h-4 w-4" />
             </span>
-            <span className="hidden sm:block">Buscar</span>
+            {!nav && <span className="hidden sm:block">Buscar</span>}
           </Button>
         </div>
       </form>

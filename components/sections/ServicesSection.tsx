@@ -2,10 +2,10 @@ import { AirVent, BedDouble, EggFried, MapPin, Tv, WashingMachine } from "lucide
 
 export default function ServiceSection() {
   return (
-    <section className="flex justify-evenly  w-full h-64 mt-16">
+    <section className="flex flex-col md:flex-row justify-evenly gap-8 md:gap-2 w-full mt-16">
     <div className="flex flex-col gap-10">
       <h1 className="text-xl text-center">Servicios incluidos</h1>
-      <div className="flex gap-10 items-start justify-center">
+      <div className="flex gap-4 md:gap-10 items-start justify-center">
         <div className="flex flex-col items-center justify-center gap-2 ">
           <div className="bg-primary rounded-full border-yellow-200 border-2 p-2">
             <AirVent
@@ -76,6 +76,7 @@ export default function ServiceSection() {
         style={{ border: 0 }}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
+        className="px-2 sm:px-0"
       ></iframe>
       <p className="flex">
         <MapPin /> Calle 23 No. 759 2c e/ Calle B y Calle C, La Habana, Cuba

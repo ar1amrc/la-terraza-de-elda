@@ -7,7 +7,7 @@ import {
 
 export default function FaqSection() {
   return (
-    <section className="flex flex-col justify-center items-center w-full h-64">
+    <section className="flex flex-col justify-center items-center w-full py-20">
 
         <h1 className="text-xl text-center">Preguntas frecuentes</h1>
 

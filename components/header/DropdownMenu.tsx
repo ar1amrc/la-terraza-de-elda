@@ -16,7 +16,7 @@ export function DropdownMenuComponenent({ dictionary }: any) {
   const pathname = usePathname();
 
   return (
-    <div className="sm:hidden">
+    <div className="lg:hidden">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-green-950 bg-white rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -35,41 +35,46 @@ export function DropdownMenuComponenent({ dictionary }: any) {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link
-                href="/history"
-                legacyBehavior
-                passHref
-                
-              >
+              <Link href="/history" legacyBehavior passHref>
                 {/* <NavigationMenuLink 
               className={navigationMenuTriggerStyle()}>
               {dictionary.header.Home.toUpperCase()}
             </NavigationMenuLink> */}
-                <span className={clsx("text-gray-900", {
-                  "pointer-events-none text-green-700 font-bold transition-colors":
-                    pathname.includes("/history"),
-                  "pointer-events-auto": !pathname.includes("/history"),
-                })}>{dictionary.header.History.toUpperCase()}</span>
+                <span
+                  className={clsx("text-gray-900", {
+                    "pointer-events-none text-green-700 font-bold transition-colors":
+                      pathname.includes("/history"),
+                    "pointer-events-auto": !pathname.includes("/history"),
+                  })}
+                >
+                  {dictionary.header.History.toUpperCase()}
+                </span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/rooms" legacyBehavior passHref>
-              <span className={clsx("text-gray-900", {
-                  "pointer-events-none text-green-700 font-bold transition-colors":
-                    pathname.includes("/rooms"),
-                  "pointer-events-auto": !pathname.includes("/history"),
-                })}>{dictionary.header.Rooms.toUpperCase()}</span>
-                
+                <span
+                  className={clsx("text-gray-900", {
+                    "pointer-events-none text-green-700 font-bold transition-colors":
+                      pathname.includes("/rooms"),
+                    "pointer-events-auto": !pathname.includes("/history"),
+                  })}
+                >
+                  {dictionary.header.Rooms.toUpperCase()}
+                </span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/gallery" legacyBehavior passHref>
-              <span className={clsx("text-gray-900", {
-                  "pointer-events-none text-green-700 font-bold transition-colors":
-                    pathname.includes("/gallery"),
-                  "pointer-events-auto": !pathname.includes("/history"),
-                })}>{dictionary.header.Gallery.toUpperCase()}</span>
-               
+                <span
+                  className={clsx("text-gray-900", {
+                    "pointer-events-none text-green-700 font-bold transition-colors":
+                      pathname.includes("/gallery"),
+                    "pointer-events-auto": !pathname.includes("/history"),
+                  })}
+                >
+                  {dictionary.header.Gallery.toUpperCase()}
+                </span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>

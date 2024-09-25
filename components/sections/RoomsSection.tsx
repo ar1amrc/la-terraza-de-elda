@@ -23,13 +23,13 @@ export default async function RoomsSection() {
   const rooms = await getRooms();
 
   return (
-    <section className="flex flex-col lg:flex-row lg:justify-evenly items-center w-full gap-3 lg:gap-0  mt-16">
-      <Card className="w-[500px] h-[375px] shadow-md shadow-slate-200 hover:scale-105 transition-transform">
+    <section className="flex flex-col lg:flex-row lg:justify-evenly items-center w-full gap-6 lg:gap-0  mt-16">
+      <Card className="w-[375px] h-[375px] sm:w-[450px] sm:h-[350px] shadow-md shadow-slate-200 hover:scale-105 transition-transform">
         <CardHeader>
           <CardTitle>{rooms[0].name}</CardTitle>
           {/* <CardDescription>Habitación lujosa</CardDescription> */}
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-4 pb-4 sm:pb-2">
           <div className="flex gap-3">
             <Image
               src={getThumbnail(rooms[0])}
@@ -51,12 +51,12 @@ export default async function RoomsSection() {
         </CardFooter>
       </Card>
 
-      <Card className=" w-[500px] h-[375px] shadow-md shadow-slate-200 hover:scale-105 transition-transform">
+      <Card className="w-[375px] h-[375px] sm:w-[450px] sm:h-[350px] shadow-md shadow-slate-200 hover:scale-105 transition-transform">
         <CardHeader>
           <CardTitle>{rooms[1].name}</CardTitle>
           {/* <CardDescription>Habitación lujosa</CardDescription> */}
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-4 pb-4 sm:pb-2">
           <div className="flex gap-3">
             <Image
               src={getThumbnail(rooms[1])}
