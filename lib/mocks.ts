@@ -6,7 +6,12 @@ export const Rooms: Room[] = [
     name: "Habitación Familiar",
     description:
       "Una habitación muy amplia con una cama matrimonio y otra personal, cuenta con cocina totalmente equipada y un gran armario. Decorada con elementos del siglo XX dandole un toque tradicional mezclando con el diseño moderno.",
-    images: ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg", "5.jpeg"],
+    images: [
+      // "1.jpeg", 
+      "2.jpeg", 
+      "3.jpeg", 
+      "4.jpeg", 
+      "5.jpeg"],
     price: 300,
     capacity: 4,
     thumbnail: "3.jpeg",

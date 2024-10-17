@@ -15,6 +15,7 @@ import clsx from "clsx";
 import { addDays, format } from "date-fns";
 import { es } from "date-fns/locale";
 import { CalendarIcon, SearchIcon, UsersIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -25,8 +26,11 @@ export default function SearchBar({ nav = false }: { nav?: boolean }) {
   });
   const id = nav ? "nav" : "";
 
+  const pathName = usePathname() ;
+  const show = pathName === "/es" || pathName === "/en"
+
   return (
-    <div
+    show && <div
       id={id}
       className={clsx("flex gap-2 px-1", {
         " ": nav,

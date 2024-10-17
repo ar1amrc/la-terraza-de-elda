@@ -14,11 +14,10 @@ import { iconsList } from "../icons/icons";
 import { getIcon } from "@/lib/utils";
 
 const getThumbnail = (room: Room) => {
-  const thumbnail =
-    `/images/room/${room.id}/${room.thumbnail}` ?? "/images/casa.jpg";
+  const thumbnail = room.thumbnail ?
+    `/images/room/${room.id}/${room.thumbnail}` : "/images/casa.jpg";
   return thumbnail;
 };
-
 export default async function RoomsSection() {
   const rooms = await getRooms();
 
