@@ -145,3 +145,19 @@ export async function deleteReservation(id: number) {
   }
   revalidatePath("/admin/reservations");
 }
+
+export  async function searchReservationsByRoom(id: number) {
+
+
+  // throw new Error("Failed to Delete Invoice");
+  try {
+    // const reservations = await sql`SELECT * FROM reservations WHERE room_id = ${id}`;
+    // return reservations;
+  } catch (err) {
+    return {
+      message: "Database Error: Failed to Search Reservations.",
+    };
+  }
+}
+
+
