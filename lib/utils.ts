@@ -1,6 +1,7 @@
 import { iconsList } from "@/components/icons/icons";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { type IconT } from "@/lib/definitions";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,7 +29,9 @@ export function objectType(obj: any): string {
   return "object";
 }
 
-export function getIcon(icon: string | undefined) {
+export function getIcon(icon: IconT) {
   if (icon === undefined) return null;
-  if (Object.keys(iconsList).some( (key) => key = icon)) return iconsList[icon];
+  type iconType = typeof iconsList
+  
+  if (icon in iconsList ) return iconsList[icon];
 }

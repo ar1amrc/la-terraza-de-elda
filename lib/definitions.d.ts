@@ -1,3 +1,5 @@
+import { iconsList } from "@/components/icons/icons";
+
 export interface Room {
     id: number;
     name: string;
@@ -10,12 +12,14 @@ export interface Room {
     // extraServices?: Service[];
 }
 
+export type IconT = keyof typeof iconsList;
+
 export interface Service { 
     id: number;
     name: string;
     description: string;
     price?: number;
-    icon?: string;
+    icon?: Icon;
 }
 
 export interface Experience {
