@@ -28,9 +28,9 @@ export default function UserDialog({
 }) {
   //   const updateUserWithId = updateUser.bind(null, user.id);
   const functionToCall = edit ? updateUser.bind(null, user?.id) : createUser;
-  const initialState = { errors: {} };
+  const initialState = { message: null as unknown as string, errors: {} };
 
-  const [state, dispatch] = useFormState<State | undefined, FormData>(
+  const [state, dispatch] = useFormState<State, FormData>(
     functionToCall,
     initialState
   );

@@ -46,7 +46,7 @@ const userCreate = UserSchema.omit({ id: true }).refine(
 );
 
 export type State = {
-  errors: {
+  errors?: {
     password?: string[];
     email?: string[];
     name?: string[];
@@ -57,7 +57,7 @@ export type State = {
 };
 
 export async function createUser(
-  prevState: State | undefined,
+  prevState: State,
   formData: FormData
 ) {
   const validatedFields = userCreate.safeParse({
