@@ -36,6 +36,7 @@ const FileUploadForm = ({ objectToSearch }: { objectToSearch?: Experience }) => 
         <CustomFileSelector
           accept="image/png, image/jpeg"
           onChange={handleFileSelected}
+          
         />
         {/* <button
           type="submit"

@@ -83,6 +83,7 @@ export default function Form({ experience }: { experience?: Experience }) {
             Imágenes
           </Label>
           <FileUploadForm objectToSearch={experience} />
+          {experience && <input name="oldImages" value={experience.images} hidden />}
         </div>
       </div>
       <div className="flex justify-end">

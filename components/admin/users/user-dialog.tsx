@@ -4,6 +4,7 @@ import { useFormState } from "react-dom";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -25,7 +26,7 @@ export default function UserDialog({
   user?: User;
   edit?: boolean;
 }) {
-//   const updateUserWithId = updateUser.bind(null, user.id);
+  //   const updateUserWithId = updateUser.bind(null, user.id);
   const functionToCall = edit ? updateUser.bind(null, user?.id) : createUser;
   const initialState = { errors: {} };
 
@@ -188,7 +189,11 @@ export default function UserDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Guardar Cambios</Button>
+            <DialogClose asChild>
+              <Button type="submit">
+                Guardar Cambios
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>

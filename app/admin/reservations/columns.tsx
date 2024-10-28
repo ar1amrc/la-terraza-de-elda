@@ -50,13 +50,13 @@ export const columns: ColumnDef<Reservation>[] = [
     ),
     cell: ({ row }) => { 
       const status: string = row.getValue("status");
-      const variant = status === "confirmed" ? "default" : "pending" ? 'secondary' :'destructive';
+      const variant = status === "confirmed" ? "default" : (status ===  "pending" ? 'secondary' :'destructive');
       return <div className="capitalize"><Badge variant={variant}>{status}</Badge></div>;
     }
   },
   {
     id: 'datos',
-    accessorKey: "guestsData",
+    accessorKey: "guestsdata",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Datos" sort={false} />
     ),
@@ -68,9 +68,8 @@ export const columns: ColumnDef<Reservation>[] = [
       <DataTableColumnHeader column={column} title="Fechas" />
     ),
     cell: ({ row }) => {
-      const startDate: Date = new Date(row.original.startDate);
-      const endDate:  Date = new Date(row.original.endDate);
-      return <div>{startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}</div>;
+      
+      return <div>{row.original.startdate.toLocaleDateString()} - {row.original.enddate.toLocaleDateString()}</div>;
     }
   },
   {

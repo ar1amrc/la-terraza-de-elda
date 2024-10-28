@@ -1,5 +1,6 @@
 "use server";
 
+import { sql } from "@vercel/postgres";
 import fs from "fs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -54,6 +55,10 @@ export async function createRoom(
   formData: FormData
 ) {
   const images = formData.getAll("images");
+  const imagesNames = (images as File[]).map((image) => image.name);
+  const imagesVerified = imagesNames.some((image) => image === "undefined")
+    ? []
+    : imagesNames;
 
   const validatedFields = RoomCreate.safeParse({
     name: formData.get("name"),
@@ -65,6 +70,8 @@ export async function createRoom(
       : [],
     // extraServices: (formData.get("extraServices") as string)?.split(","),
   });
+  const idSQL = await sql`SELECT MAX("id") FROM rooms;`;
+  const id = idSQL.rows[0].max + 1;
 
   if (!validatedFields.success) {
     return {
@@ -73,7 +80,25 @@ export async function createRoom(
     };
   }
 
-  const { name, description, price } = validatedFields.data;
+  const { name, description, price, capacity, primaryServices } =
+    validatedFields.data;
+
+  try {
+    const ps = primaryServices.map((service) => {
+      return sql`INSERT INTO roomservice (room_id, service_id) VALUES (${id}, ${service})`;
+    });
+
+    await sql`
+  INSERT INTO rooms ( id, name, description, price, capacity, images)
+      VALUES ( ${id}, ${name}, ${description}, ${price}, ${capacity}, ${imagesVerified})
+`;
+    await Promise.all(ps);
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Create Service.",
+    };
+  }
 
   for (const formDataEntryValue of images) {
     if (
@@ -83,14 +108,14 @@ export async function createRoom(
       const fil = formDataEntryValue as unknown as Blob;
 
       const buffer = Buffer.from(await fil.arrayBuffer());
-      const folderName = `public/images/experience/${name}`;
+      const folderName = `public/images/room/${id}`;
 
       try {
         if (!fs.existsSync(folderName)) {
           fs.mkdirSync(folderName);
         } else {
           fs.writeFileSync(
-            `public/images/experiences/${name}/${formDataEntryValue.name}`,
+            `public/images/room/${id}/${formDataEntryValue.name}`,
             buffer
           );
         }
@@ -101,6 +126,7 @@ export async function createRoom(
   }
 
   revalidatePath("/admin/rooms");
+  redirect("/admin/rooms");
 }
 
 export async function updateRoom(
@@ -108,16 +134,27 @@ export async function updateRoom(
   prevState: State | undefined,
   formData: FormData
 ) {
+  const images = formData.getAll("images");
+  const imagesNames: string[] = (images as File[]).map((image) => image.name);
+  const oldImages: string[] | undefined = formData
+    .get("oldImages")
+    ?.toString()
+    .split(",");
 
-  const priceFD = formData.get("price")
-    ? parseFloat(formData.get("price") as string)
-    : undefined;
+  const imagesMerged = oldImages
+    ? imagesNames.concat(oldImages)
+    : images
+    ? imagesNames
+    : [];
 
   const validatedFields = RoomCreate.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
-    price: priceFD,
-    icon: formData.get("icon"),
+    price: parseFloat(formData.get("price") as string),
+    capacity: parseInt(formData.get("capacity") as string),
+    primaryServices: formData.get("primaryServices")
+      ? (formData.get("primaryServices") as string)?.split(",")
+      : [],
   });
 
   if (!validatedFields.success) {
@@ -127,15 +164,38 @@ export async function updateRoom(
     };
   }
 
-  const { name, description, price } = validatedFields.data;
+  const { name, description, price, capacity, primaryServices } = validatedFields.data;
+
+  try {
+    await sql`DELETE FROM roomservice WHERE room_id = ${id}`
+
+    const update = sql`
+      UPDATE rooms 
+      SET name = ${name}, description = ${description}, price = ${price}, capacity = ${capacity}, images = ${imagesMerged}
+      WHERE id = ${id}
+    `;
+
+    const ps = primaryServices.map((service) => {
+      return sql`INSERT INTO roomservice (room_id, service_id) VALUES (${id}, ${service})`;
+    });
+    
+    const data = await Promise.all([ update, ...ps])
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Create Service.",
+    };
+  }
+
   revalidatePath("/admin/rooms");
-  //  redirect("/admin/Rooms");
+  redirect("/admin/rooms");
 }
 
 export async function deleteRoom(id: number) {
   // throw new Error("Failed to Delete Invoice");
   try {
-    // await sql`DELETE FROM invoices WHERE id = ${id}`;
+    await sql`DELETE FROM roomservice WHERE room_id = ${id}`;
+    await sql`DELETE FROM rooms WHERE id = ${id}`;
   } catch (err) {
     return {
       message: "Database Error: Failed to Delete Invoice.",
@@ -145,7 +205,16 @@ export async function deleteRoom(id: number) {
 }
 
 export async function changeThumbnail(id: number | string, image?: string) {
-  console.log(image); //todo: cambiar esto
+  try {   
+    await sql`
+      UPDATE rooms 
+      SET thumbnail = ${image}
+      WHERE id = ${id}
+    `;
+  } catch (err) {
+    return {
+      message: "Database Error: Failed to Create Service.",
+    };
+  }
   revalidatePath("/admin/rooms");
-
 }

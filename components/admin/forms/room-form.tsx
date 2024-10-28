@@ -169,6 +169,7 @@ export default function Form({
             type="number"
             min="0"
             step="1"
+            max='5'
             defaultValue={room?.capacity}
             id="capacity"
             name="capacity"
@@ -230,6 +231,8 @@ export default function Form({
             Imágenes
           </Label>
           <FileUploadForm objectToSearch={room} />
+          {room && <input name="oldImages" defaultValue={room.images} hidden />}
+
         </div>
       </div>
       <div className="flex justify-end">

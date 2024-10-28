@@ -19,9 +19,10 @@ import { Trash2Icon } from "lucide-react";
 import UserDialog from "@/components/admin/users/user-dialog";
 import { deleteUser } from "@/lib/actions/user-actions";
 import { DeleteDialog } from "@/components/admin/delete-dialog";
+import { getUsers } from "@/lib/data";
 
-export default function Page() {
-  const users = Users;
+export default async function Page() {
+  const users = await getUsers();
 
   return (
     <Table>

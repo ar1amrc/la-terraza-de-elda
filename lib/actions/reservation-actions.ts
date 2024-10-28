@@ -1,5 +1,7 @@
 "use server";
 
+import { sql } from "@vercel/postgres";
+import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -67,6 +69,9 @@ export async function createReservation(
   formData: FormData
 ) {
   const date = JSON.parse(formData.get("date") as string);
+  const id = randomUUID();
+
+  console.log(formData);
 
   const validatedFields = ReservationCreate.safeParse({
     guestsData: formData.get("guestsData"),
@@ -78,8 +83,12 @@ export async function createReservation(
     guests: parseInt(formData.get("guests") as string),
     amount: parseInt(formData.get("amount") as string),
     additionalData: formData.get("additionalData"),
-    extraServices: (formData.get("extraServices") as string)?.split(","),
-    experiences: (formData.get("experiences") as string)?.split(","),
+    extraServices: (formData.get("extraServices") as string)
+      ? (formData.get("extraServices") as string)?.split(",")
+      : [],
+    experiences: (formData.get("experiences") as string)
+      ? (formData.get("experiences") as string)?.split(",")
+      : [],
   });
 
   if (!validatedFields.success) {
@@ -102,7 +111,30 @@ export async function createReservation(
     extraServices,
     experiences,
   } = validatedFields.data;
+
+  try {
+    await sql`
+  INSERT INTO reservations ( id, guestsdata, email, startDate, endDate, room_id, status, guests, amount, additionalData, user_id)
+      VALUES ( ${id}, ${guestsData}, ${email}, ${startDate}, ${endDate}, ${roomId}, ${status}, ${guests}, ${amount}, ${additionalData}, '997db02f-40c1-445b-830e-a1da560ad2a1' )
+`;
+    const es =
+      extraServices?.map((service) => {
+        return sql`INSERT INTO reservationextraservices (reservation_id, service_id) VALUES (${id}, ${service})`;
+      }) ?? [];
+    const exp =
+      experiences?.map((experience) => {
+        return sql`INSERT INTO reservationexperiences (reservation_id, experience_id) VALUES (${id}, ${experience})`;
+      }) ?? [];
+
+    await Promise.all([...es, ...exp]);
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Create Service.",
+    };
+  }
   revalidatePath("/admin/reservations");
+  redirect("admin/reservations");
 }
 
 export async function updateReservation(
@@ -110,16 +142,24 @@ export async function updateReservation(
   prevState: State | undefined,
   formData: FormData
 ) {
-
-  const priceFD = formData.get("price")
-    ? parseFloat(formData.get("price") as string)
-    : undefined;
+  const date = JSON.parse(formData.get("date") as string);
 
   const validatedFields = ReservationCreate.safeParse({
-    name: formData.get("name"),
-    description: formData.get("description"),
-    price: priceFD,
-    icon: formData.get("icon"),
+    guestsData: formData.get("guestsData"),
+    email: formData.get("email") != "" ? formData.get("email") : undefined,
+    startDate: date.from ?? new Date(date.from),
+    endDate: date.to ?? new Date(),
+    roomId: parseInt(formData.get("room") as string),
+    status: formData.get("status"),
+    guests: parseInt(formData.get("guests") as string),
+    amount: parseInt(formData.get("amount") as string),
+    additionalData: formData.get("additionalData"),
+    extraServices: (formData.get("extraServices") as string)
+      ? (formData.get("extraServices") as string)?.split(",")
+      : [],
+    experiences: (formData.get("experiences") as string)
+      ? (formData.get("experiences") as string)?.split(",")
+      : [],
   });
 
   if (!validatedFields.success) {
@@ -129,16 +169,59 @@ export async function updateReservation(
     };
   }
 
-  const { guests } = validatedFields.data;
+  const {
+    guestsData,
+    email,
+    startDate,
+    endDate,
+    roomId,
+    status,
+    guests,
+    amount,
+    additionalData,
+    extraServices,
+    experiences,
+  } = validatedFields.data;
+
+  try {
+    await sql`DELETE FROM reservationextraservices WHERE reservation_id = ${id}`;
+    await sql`DELETE FROM reservationexperiences WHERE reservation_id = ${id}`;
+
+    await sql`
+      UPDATE reservations
+      SET guestsdata = ${guestsData}, email = ${email}, startDate = ${startDate}, endDate = ${endDate}, room_id = ${roomId}, status = ${status}, guests = ${guests}, amount = ${amount}, additionalData = ${additionalData}
+      WHERE id = ${id}
+    `;
+
+    const es =
+      extraServices?.map((service) => {
+        return sql`INSERT INTO reservationextraservices (reservation_id, service_id) VALUES (${id}, ${service})`;
+      }) ?? [];
+    const exp =
+      experiences?.map((experience) => {
+        return sql`INSERT INTO reservationexperiences (reservation_id, experience_id) VALUES (${id}, ${experience})`;
+      }) ?? [];
+
+    await Promise.all([...es, ...exp]);
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Database Error: Failed to Create Service.",
+    };
+  }
+
   revalidatePath("/admin/reservations");
-  //  redirect("/admin/reservations");
+  redirect("/admin/reservations");
 }
 
 export async function deleteReservation(id: number) {
   // throw new Error("Failed to Delete Invoice");
   try {
-    // await sql`DELETE FROM invoices WHERE id = ${id}`;
+    await sql`DELETE FROM reservationextraservices WHERE reservation_id = ${id}`;
+    await sql`DELETE FROM reservationexperiences WHERE reservation_id = ${id}`;
+    await sql`DELETE FROM reservations WHERE reservations.id = ${id}`;
   } catch (err) {
+    console.error(err);
     return {
       message: "Database Error: Failed to Delete Invoice.",
     };
@@ -146,9 +229,7 @@ export async function deleteReservation(id: number) {
   revalidatePath("/admin/reservations");
 }
 
-export  async function searchReservationsByRoom(id: number) {
-
-
+export async function searchReservationsByRoom(id: number) {
   // throw new Error("Failed to Delete Invoice");
   try {
     // const reservations = await sql`SELECT * FROM reservations WHERE room_id = ${id}`;
@@ -159,5 +240,3 @@ export  async function searchReservationsByRoom(id: number) {
     };
   }
 }
-
-

@@ -14,7 +14,7 @@ const links = [
     href: "/admin",
   },
   {
-    label: "Servicios",
+    label: "Reservas",
     href: "/admin/reservations",
   },
 ];

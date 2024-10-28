@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     notFound();
   }
   
-  const ps = Array.from(rooms.primaryServices, (service) => {
+  const ps = rooms.primaryServices?.map( (service) => {
     return { label: service.name, value: service.id.toString() };
   });
 

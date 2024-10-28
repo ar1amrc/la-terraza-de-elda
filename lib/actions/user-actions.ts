@@ -1,7 +1,10 @@
 "use server";
 
+import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
+const bcrypt = require("bcrypt");
 
 const UserSchema = z.object({
   id: z.number(),
@@ -73,7 +76,21 @@ export async function createUser(
   }
 
   const { name, username, email, password } = validatedFields.data;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    await sql`
+    INSERT INTO users ( name, email, password, username)
+        VALUES ( ${name}, ${email}, ${hashedPassword}, ${username})
+  `;
+  } catch (err) {
+    return {
+      message: "Database Error: Failed to Create User.",
+    };
+  }
+
   revalidatePath("/admin/users");
+  redirect("/admin/users");
 }
 
 export async function updateUser(
@@ -92,22 +109,36 @@ export async function updateUser(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Invoice.", //todo: cambia esto
+      message: "Missing Fields. Failed to Create User.", //todo: cambia esto
     };
   }
 
   const { name, username, email, password } = validatedFields.data;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    await sql`
+ UPDATE users
+ SET name = ${name}, username = ${username}, email = ${email}, password = ${hashedPassword}
+ WHERE id = ${id}
+`;
+  } catch (err) {
+    return {
+      message: "Database Error: Failed to Update User.",
+    };
+  }
+
   revalidatePath("/admin/users");
+  redirect("/admin/users");
 }
 
 export async function deleteUser(id: number) {
-  
- // throw new Error("Failed to Delete Invoice");
+  // throw new Error("Failed to Delete Invoice");
   try {
-    // await sql`DELETE FROM invoices WHERE id = ${id}`;
+    await sql`DELETE FROM users WHERE id = ${id}`;
   } catch (err) {
     return {
-      message: "Database Error: Failed to Delete Invoice.",
+      message: "Database Error: Failed to Delete User.",
     };
   }
   revalidatePath("/admin/users");

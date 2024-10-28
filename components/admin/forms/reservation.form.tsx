@@ -53,8 +53,8 @@ export default function Form({
   const [extraServices, setExtraServices] = useState<Option[]>(extra);
   const [experiencesSelected, setExperiencesSelected] = useState<Option[]>(exp);
   const [date, setDate] = useState<DateRange | undefined>({
-    from: reservation?.startDate ? new Date(reservation.startDate) : new Date(),
-    to: reservation?.endDate ? new Date(reservation.endDate) : addDays(new Date(), 3),
+    from: reservation?.startdate ? new Date(reservation.startdate) : new Date(),
+    to: reservation?.enddate ? new Date(reservation.enddate) : addDays(new Date(), 3),
   });
 
   const functionToCall = reservation
@@ -78,7 +78,7 @@ export default function Form({
             name="guestsData"
             className="col-span-5"
             aria-describedby="guestsData-error"
-            defaultValue={reservation?.guestsData}
+            defaultValue={reservation?.guestsdata}
             placeholder="Datos de los huéspedes (nombre, contacto, documento de identificación, etc)"
           />
           <div
@@ -196,7 +196,7 @@ export default function Form({
             Habitación
           </Label>
           <div className="col-span-2">
-            <Select name="room" defaultValue={reservation?.roomId.toString()}>
+            <Select name="room" defaultValue={reservation?.room_id.toString()}>
               <SelectTrigger>
                 <SelectValue placeholder="Seleccione..." />
               </SelectTrigger>
@@ -327,7 +327,7 @@ export default function Form({
             name="additionalData"
             className="col-span-5"
             aria-describedby="additionalData-error"
-            defaultValue={reservation?.guestsData}
+            defaultValue={reservation?.additionaldata}
             placeholder="Cualquier dato adicional sobre la reserva (alergias, vegano, petición especial, etc.)"
           />
           <div
@@ -391,7 +391,7 @@ export default function Form({
           <Input
             type="hidden"
             name="experiences"
-            value={extraServices.map((e) => e.value)}
+            value={experiencesSelected.map((e) => e.value)}
           />
           <div className="col-span-2">
             <MultipleSelector

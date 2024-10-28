@@ -8,6 +8,7 @@ import { forwardRef, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Command, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
+import { Select } from '@/lib/definitions';
 
 export interface Option {
   value: string;
@@ -23,8 +24,8 @@ interface GroupOption {
 }
 
 interface MultipleSelectorProps {
-  value?: Option[];
-  defaultOptions?: Option[];
+  value?: Option[] | Select[];
+  defaultOptions?: Option[] | Select[];
   /** manually controlled options */
   options?: Option[];
   placeholder?: string;

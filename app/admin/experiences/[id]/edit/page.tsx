@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return <main>
-    <BreadcumbAdmin links={links} page="Editar Servicio"/>
+    <BreadcumbAdmin links={links} page="Editar Experiencia"/>
       
       <Form  experience={experience}/>
   </main>;
