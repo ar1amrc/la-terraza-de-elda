@@ -47,7 +47,7 @@ const ReservationSchema = z.object({
 const ReservationCreate = ReservationSchema.omit({ id: true });
 
 export type State = {
-  errors: {
+  errors?: {
     roomId?: string[];
     userId?: string[];
     startDate?: string[];
@@ -65,7 +65,7 @@ export type State = {
 };
 
 export async function createReservation(
-  prevState: State | undefined,
+  prevState: State,
   formData: FormData
 ) {
   const date = JSON.parse(formData.get("date") as string);

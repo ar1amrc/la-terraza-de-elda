@@ -20,7 +20,7 @@ const ExperienceSchema = z.object({
 const ExperienceCreate = ExperienceSchema.omit({ id: true });
 
 export type State = {
-  errors: {
+  errors?: {
     name?: string[];
     description?: string[];
     price?: string[];
@@ -29,7 +29,7 @@ export type State = {
 };
 
 export async function createExperience(
-  prevState: State | undefined,
+  prevState: State,
   formData: FormData
 ) {
   const images = formData.getAll("images");

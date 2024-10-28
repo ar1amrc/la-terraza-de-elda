@@ -20,17 +20,15 @@ import {
 import { Service } from "@/lib/definitions";
 
 export default function Form({ service }: { service?: Service }) {
-  const initialState = { errors: {} };
+  const initialState = { message: null as unknown as string, errors: {} };
+
   const [icon, setIcon] = useState(service?.icon);
 
   const functionToCall = service
     ? updateService.bind(null, service.id)
     : createService;
 
-  const [state, dispatch] = useFormState<State | undefined, FormData>(
-    functionToCall,
-    initialState
-  );
+  const [state, dispatch] = useFormState(functionToCall, initialState);
 
   useEffect(() => {
     if (icon) {

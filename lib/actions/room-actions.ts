@@ -39,7 +39,7 @@ const RoomSchema = z.object({
 const RoomCreate = RoomSchema.omit({ id: true });
 
 export type State = {
-  errors: {
+  errors?: {
     name?: string[];
     description?: string[];
     price?: string[];
@@ -51,7 +51,7 @@ export type State = {
 };
 
 export async function createRoom(
-  prevState: State | undefined,
+  prevState: State,
   formData: FormData
 ) {
   const images = formData.getAll("images");

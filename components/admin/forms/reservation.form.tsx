@@ -48,7 +48,7 @@ export default function Form({
   extra?: Option[];
   exp?: Option[];
 }) {
-  const initialState = { errors: {} };
+  const initialState = { message: null as unknown as string, errors: {} };
 
   const [extraServices, setExtraServices] = useState<Option[]>(extra);
   const [experiencesSelected, setExperiencesSelected] = useState<Option[]>(exp);
@@ -61,7 +61,7 @@ export default function Form({
     ? updateReservation.bind(null, reservation.id)
     : createReservation;
 
-  const [state, dispatch] = useFormState<State | undefined, FormData>(
+  const [state, dispatch] = useFormState<State, FormData>(
     functionToCall,
     initialState
   );

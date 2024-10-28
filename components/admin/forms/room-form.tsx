@@ -21,13 +21,13 @@ export default function Form({
   ps?: Option[];
   es?: Option[];
 }) {
-  const initialState = { errors: {} };
+  const initialState = { message: null as unknown as string, errors: {} };
 
   const functionToCall = room ? updateRoom.bind(null, room.id) : createRoom;
   const [primary, setPrimary] = useState<Option[]>(ps);
   // const [extra, setExtra] = useState<Option[]>(es);
 
-  const [state, dispatch] = useFormState<State | undefined, FormData>(
+  const [state, dispatch] = useFormState<State, FormData>(
     functionToCall,
     initialState
   );

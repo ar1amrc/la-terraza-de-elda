@@ -27,16 +27,17 @@ const ServiceSchema = z.object({
 const ServiceCreate = ServiceSchema.omit({ id: true });
 
 export type State = {
-  errors: {
+  errors?: {
     name?: string[];
     description?: string[];
     price?: string[];
+    icon?: string[];
   };
   message?: string | null;
 };
 
 export async function createService(
-  prevState: State | undefined,
+  prevState: State,
   formData: FormData
 ) {
   const validatedFields = ServiceCreate.safeParse({

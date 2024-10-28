@@ -13,13 +13,13 @@ import { Experience } from "@/lib/definitions";
 import FileUploadForm from "../upload/FileUploadForm";
 
 export default function Form({ experience }: { experience?: Experience }) {
-  const initialState = { errors: {} };
+  const initialState = { message: null as unknown as string, errors: {} };
 
   const functionToCall = experience
     ? updateExperience.bind(null, experience.id)
     : createExperience;
 
-  const [state, dispatch] = useFormState<State | undefined, FormData>(
+  const [state, dispatch] = useFormState<State, FormData>(
     functionToCall,
     initialState
   );
