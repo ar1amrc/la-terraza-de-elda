@@ -11,6 +11,7 @@ import {
   User,
 } from "./definitions";
 import { Experiences, Reservations, Rooms, Services, Users } from "./mocks";
+import { Option } from "@/components/ui/multiple-selector";
 
 export async function getServices(): Promise<Service[]> {
   try {
@@ -24,10 +25,10 @@ export async function getServices(): Promise<Service[]> {
   // return Services;
 }
 
-export async function getServicesSelect(): Promise<Select[]> {
+export async function getServicesSelect(): Promise<Option[]> {
   try {
     const data =
-      await sql<Select>`SELECT services.name as label, services.id as value FROM services`;
+      await sql<Option>`SELECT services.name as label, services.id as value FROM services`;
 
     return data.rows;
   } catch (error) {
@@ -42,10 +43,10 @@ export async function getServicesSelect(): Promise<Select[]> {
   // return services;
 }
 
-export async function getExtraServicesSelect(): Promise<Select[]> {
+export async function getExtraServicesSelect(): Promise<Option[]> {
   try {
     const data =
-      await sql<Select>`SELECT services.name as label, services.id as value 
+      await sql<Option>`SELECT services.name as label, services.id as value 
                         FROM services 
                         WHERE services.price is not null OR services.price > 0`;
 
@@ -96,10 +97,10 @@ export async function getExperiences(): Promise<Experience[]> {
     throw new Error("Failed to fetch experiences data.");
   }
 }
-export async function getExperiencesSelect(): Promise<Select[]> {
+export async function getExperiencesSelect(): Promise<Option[]> {
   try {
     const data =
-      await sql<Select>`SELECT experiences.name as label, experiences.id as value 
+      await sql<Option>`SELECT experiences.name as label, experiences.id as value 
                         FROM experiences`;
 
     return data.rows;
