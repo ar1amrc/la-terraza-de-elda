@@ -50,10 +50,7 @@ export type State = {
   message?: string | null;
 };
 
-export async function createRoom(
-  prevState: State,
-  formData: FormData
-) {
+export async function createRoom(prevState: State, formData: FormData) {
   const images = formData.getAll("images");
   const imagesNames = (images as File[]).map((image) => image.name);
   const imagesVerified = imagesNames.some((image) => image === "undefined")
@@ -82,6 +79,7 @@ export async function createRoom(
 
   const { name, description, price, capacity, primaryServices } =
     validatedFields.data;
+  const formattedImages = `{${imagesVerified.join(",")}}`;
 
   try {
     const ps = primaryServices.map((service) => {
@@ -90,7 +88,7 @@ export async function createRoom(
 
     await sql`
   INSERT INTO rooms ( id, name, description, price, capacity, images)
-      VALUES ( ${id}, ${name}, ${description}, ${price}, ${capacity}, ${imagesVerified})
+      VALUES ( ${id}, ${name}, ${description}, ${price}, ${capacity}, ${formattedImages})
 `;
     await Promise.all(ps);
   } catch (err) {
@@ -164,27 +162,56 @@ export async function updateRoom(
     };
   }
 
-  const { name, description, price, capacity, primaryServices } = validatedFields.data;
+  const { name, description, price, capacity, primaryServices } =
+    validatedFields.data;
+  const formattedImages = `{${imagesMerged.join(",")}}`;
 
   try {
-    await sql`DELETE FROM roomservice WHERE room_id = ${id}`
+    await sql`DELETE FROM roomservice WHERE room_id = ${id}`;
 
     const update = sql`
       UPDATE rooms 
-      SET name = ${name}, description = ${description}, price = ${price}, capacity = ${capacity}, images = ${imagesMerged}
+      SET name = ${name}, description = ${description}, price = ${price}, capacity = ${capacity}, images = ${formattedImages}
       WHERE id = ${id}
     `;
 
     const ps = primaryServices.map((service) => {
       return sql`INSERT INTO roomservice (room_id, service_id) VALUES (${id}, ${service})`;
     });
-    
-    const data = await Promise.all([ update, ...ps])
+
+    const data = await Promise.all([update, ...ps]);
   } catch (err) {
     console.error(err);
     return {
       message: "Database Error: Failed to Create Service.",
     };
+  }
+
+  for (const formDataEntryValue of images) {
+    if (
+      typeof formDataEntryValue === "object" &&
+      "arrayBuffer" in formDataEntryValue
+    ) {
+      const fil = formDataEntryValue as unknown as Blob;
+
+      const buffer = Buffer.from(await fil.arrayBuffer());
+      const folderName = `public/images/room/${id}`;
+      const filename = `/${formDataEntryValue.name}`;
+
+      try {
+        if (!fs.existsSync(folderName)) {
+          fs.mkdirSync(folderName);
+        }
+        if (!fs.existsSync(folderName + filename)) {
+          fs.writeFileSync(
+            `public/images/room/${id}/${formDataEntryValue.name}`,
+            buffer
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }
 
   revalidatePath("/admin/rooms");
@@ -193,9 +220,14 @@ export async function updateRoom(
 
 export async function deleteRoom(id: number) {
   // throw new Error("Failed to Delete Invoice");
+  const folderName = `public/images/room/${id}`;
   try {
     await sql`DELETE FROM roomservice WHERE room_id = ${id}`;
     await sql`DELETE FROM rooms WHERE id = ${id}`;
+
+    if (fs.existsSync(folderName)) {
+      fs.rmSync(folderName, { recursive: true, force: true });
+    }
   } catch (err) {
     return {
       message: "Database Error: Failed to Delete Invoice.",
@@ -205,7 +237,7 @@ export async function deleteRoom(id: number) {
 }
 
 export async function changeThumbnail(id: number | string, image?: string) {
-  try {   
+  try {
     await sql`
       UPDATE rooms 
       SET thumbnail = ${image}

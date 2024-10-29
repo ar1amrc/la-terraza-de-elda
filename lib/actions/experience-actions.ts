@@ -53,15 +53,16 @@ export async function createExperience(
   }
 
   const id = randomUUID();
-
-  const { name, description } = validatedFields.data;
+  const { name, description } = validatedFields.data;  
+  const formattedImages = `{${imagesVerified.join(',')}}`;
 
   try {
     await sql`
     INSERT INTO experiences (id, name, description, images)
-        VALUES (${id}, ${name}, ${description}, ${imagesVerified})
+        VALUES (${id}, ${name}, ${description},  ${formattedImages})
   `;
   } catch (err) {
+    console.error(err);
     return {
       message: "Database Error: Failed to Create Service.",
     };
@@ -119,11 +120,12 @@ export async function updateExperience(
   }
 
   const { name, description } = validatedFields.data;
+  const formattedImages = `{${imagesMerged.join(',')}}`;
 
   try {
     await sql`
       UPDATE experiences 
-      SET name = ${name}, description = ${description}, images = ${imagesMerged}
+      SET name = ${name}, description = ${description}, images = ${formattedImages}
       WHERE id = ${id}
     `;
   } catch (err) {
@@ -166,9 +168,15 @@ export async function updateExperience(
 
 export async function deleteExperience(id: number) {
   // throw new Error("Failed to Delete Invoice");
+  const folderName = `public/images/experience/${id}`;
+
   try {
     await sql`DELETE FROM experiences WHERE id = ${id}`;
+    if (fs.existsSync(folderName)) {
+      fs.rmSync(folderName, { recursive: true, force: true });
+    }
   } catch (err) {
+    console.error(err);
     return {
       message: "Database Error: Failed to Delete Invoice.",
     };
